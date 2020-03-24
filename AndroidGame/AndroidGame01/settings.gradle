@@ -1,0 +1,3 @@
+rootProject.name='AndroidGame01'
+include ':app'
+include ':mylibrary'
