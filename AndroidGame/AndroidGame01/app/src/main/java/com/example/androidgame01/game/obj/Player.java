@@ -11,7 +11,7 @@ import kr.ac.kpu.game.scgyong.gameskeleton.R;
 public class Player extends AnimObject {
     private float dx, dy;
     public Player(float x, float y, float dx, float dy) {
-        super(x, y, 0, 0, R.mipmap.ryu, 10, 0);
+        super(x, y, 0, 0, R.mipmap.idle, 10, 6);
         this.dx = dx;
         this.dy = dy;
     }
