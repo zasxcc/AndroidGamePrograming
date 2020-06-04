@@ -5,11 +5,9 @@ import android.graphics.RectF;
 import com.example.androidgame01.framework.main.GameScene;
 import com.example.androidgame01.framework.main.GameTimer;
 import com.example.androidgame01.framework.main.UiBridge;
-import com.example.androidgame01.framework.obj.BitmapObject;
 import com.example.androidgame01.framework.obj.ScoreObject;
 import com.example.androidgame01.framework.obj.ui.Button;
 import com.example.androidgame01.game.obj.Ball;
-import com.example.androidgame01.game.obj.CityBackground;
 import com.example.androidgame01.game.obj.Player;
 
 import java.util.Random;
@@ -26,6 +24,7 @@ public class FirstScene extends GameScene {
     private Player player;
     private ScoreObject scoreObject;
     private GameTimer timer;
+    private Button attack;
 
     @Override
     protected int getLayerCount() {
@@ -40,6 +39,17 @@ public class FirstScene extends GameScene {
             scoreObject.add(100);
             timer.reset();
         }
+
+        if(attack.pressed == true)
+        {
+            player.Guard();
+            attack.capturing = false;
+        }
+        if(attack.pressed == false && attack.capturing == false)
+        {
+            player.UnGuard();
+            attack.capturing = true;
+        }
     }
 
     @Override
@@ -51,7 +61,7 @@ public class FirstScene extends GameScene {
         Random rand = new Random();
         int mdpi_100 = UiBridge.x(100);
         //공움직임
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 1; i++) {
             int dx = rand.nextInt(2 * mdpi_100) - 1 * mdpi_100;
             if (dx >= 0) dx++;
             int dy = rand.nextInt(2 * mdpi_100) - 1 * mdpi_100;
@@ -61,22 +71,20 @@ public class FirstScene extends GameScene {
         }
         player = new Player(500,800,0,0);
         gameWorld.add(Layer.player.ordinal(), player);
-        gameWorld.add(Layer.bg.ordinal(), new CityBackground());
+        //gameWorld.add(Layer.bg.ordinal(), new CityBackground());
         int screenWidth = UiBridge.metrics.size.x;
         RectF rbox = new RectF(UiBridge.x(-52), UiBridge.y(20), UiBridge.x(-20), UiBridge.y(62));
         scoreObject = new ScoreObject(R.mipmap.number_64x84, rbox);
         gameWorld.add(Layer.ui.ordinal(), scoreObject);
-        BitmapObject title = new BitmapObject(UiBridge.metrics.center.x, UiBridge.y(160), -150, -150, R.mipmap.slap_fight_title);
-        gameWorld.add(Layer.ui.ordinal(), title);
+        //BitmapObject title = new BitmapObject(UiBridge.metrics.center.x, UiBridge.y(160), -150, -150, R.mipmap.이미지);
+        //gameWorld.add(Layer.ui.ordinal(), title);
         timer = new GameTimer(2, 1);
 
         int cx = UiBridge.metrics.center.x;
-        int y = UiBridge.metrics.center.y;
-        y += UiBridge.y(100);
-        gameWorld.add(Layer.ui.ordinal(), new Button(cx, y, R.mipmap.btn_tutorial, R.mipmap.blue_round_btn, R.mipmap.red_round_btn));
-        y += UiBridge.y(100);
-        gameWorld.add(Layer.ui.ordinal(), new Button(cx, y, R.mipmap.btn_start_game, R.mipmap.blue_round_btn, R.mipmap.red_round_btn));
-        y += UiBridge.y(100);
-        gameWorld.add(Layer.ui.ordinal(), new Button(cx, y, R.mipmap.btn_highscore, R.mipmap.blue_round_btn, R.mipmap.red_round_btn));
+        int cy = UiBridge.metrics.center.y;
+
+        attack = new Button(cx, cy, R.mipmap.btn_tutorial, R.mipmap.blue_round_btn, R.mipmap.red_round_btn);
+        gameWorld.add(Layer.ui.ordinal(), attack);
+
     }
 }

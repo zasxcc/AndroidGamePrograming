@@ -13,7 +13,7 @@ public class Button extends BitmapObject implements Touchable {
     private static final String TAG = Button.class.getSimpleName();
     private final NinePatchDrawable bgNormal;
     private final NinePatchDrawable bgPress;
-    private boolean capturing, pressed;
+    public boolean capturing = false, pressed =false;
 
     public Button(float x, float y, int resId, int bgNormalResId, int bgPressResId) {
         super(x, y, 0, 0, resId);

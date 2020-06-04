@@ -9,7 +9,7 @@ import com.example.androidgame01.framework.res.bitmap.FrameAnimationBitmap;
 
 public class AnimObject extends GameObject {
     private static final String TAG = AnimObject.class.getSimpleName();
-    protected final FrameAnimationBitmap fab;
+    protected FrameAnimationBitmap fab;
     protected final RectF dstRect;
     protected final int width, height;
 
