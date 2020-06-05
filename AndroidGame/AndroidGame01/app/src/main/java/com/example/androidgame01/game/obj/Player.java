@@ -14,14 +14,18 @@ public class Player extends AnimObject {
         super(x, y, 0, 0, R.mipmap.idle, 8, 6);
         this.dx = dx;
         this.dy = dy;
+
     }
 
     public void Guard()
     {
         fab = new FrameAnimationBitmap(R.mipmap.def, 8, 4);
-    }
 
-    public void UnGuard()
+    }
+    public void Attack(){
+        fab = new FrameAnimationBitmap(R.mipmap.attack, 16, 4);
+    }
+    public void idle()
     {
         fab = new FrameAnimationBitmap(R.mipmap.idle, 8, 6);
     }

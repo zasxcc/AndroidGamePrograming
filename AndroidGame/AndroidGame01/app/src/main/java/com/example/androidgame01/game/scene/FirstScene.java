@@ -25,6 +25,9 @@ public class FirstScene extends GameScene {
     private ScoreObject scoreObject;
     private GameTimer timer;
     private Button attack;
+    private Button shield;
+    private int attackCheckCount = 0;
+    private boolean IsAttackcount = false;
 
     @Override
     protected int getLayerCount() {
@@ -40,15 +43,33 @@ public class FirstScene extends GameScene {
             timer.reset();
         }
 
-        if(attack.pressed == true)
+        //실드 버튼 눌렀을때
+        if(shield.pressed == true)
         {
             player.Guard();
-            attack.capturing = false;
+            shield.capturing = false;
         }
-        if(attack.pressed == false && attack.capturing == false)
+        //실드 버튼 땟을떄
+        else if(shield.pressed == false && shield.capturing == false)
         {
-            player.UnGuard();
-            attack.capturing = true;
+            player.idle();
+            shield.capturing = true;
+        }
+        //어택 버튼 눌럿을때
+        if(attack.pressed == true)
+        {
+            player.Attack();
+            IsAttackcount = true;
+            attackCheckCount = 0;
+        }
+        //어택 버튼 누르면 카운트 시작
+        if(IsAttackcount) {
+            attackCheckCount++;
+            if (attackCheckCount == 20) {
+                attackCheckCount = 0;
+                IsAttackcount = false;
+                player.idle();
+            }
         }
     }
 
@@ -83,8 +104,11 @@ public class FirstScene extends GameScene {
         int cx = UiBridge.metrics.center.x;
         int cy = UiBridge.metrics.center.y;
 
-        attack = new Button(cx, cy, R.mipmap.btn_tutorial, R.mipmap.blue_round_btn, R.mipmap.red_round_btn);
+        attack = new Button(cx + 500, cy + 300, R.mipmap.attack_button, R.mipmap.blue_round_btn, R.mipmap.red_round_btn);
         gameWorld.add(Layer.ui.ordinal(), attack);
+
+        shield = new Button(cx + 750, cy + 300, R.mipmap.shield_button, R.mipmap.blue_round_btn, R.mipmap.red_round_btn);
+        gameWorld.add(Layer.ui.ordinal(), shield);
 
     }
 }
