@@ -90,7 +90,7 @@ public class FirstScene extends GameScene {
             ball = new Ball(mdpi_100, mdpi_100, dx, dy);
             gameWorld.add(Layer.enemy.ordinal(), ball);
         }
-        player = new Player(500,800,0,0);
+        player = new Player(500,800);
         gameWorld.add(Layer.player.ordinal(), player);
         //gameWorld.add(Layer.bg.ordinal(), new CityBackground());
         int screenWidth = UiBridge.metrics.size.x;
