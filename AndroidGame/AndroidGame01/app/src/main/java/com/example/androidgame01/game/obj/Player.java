@@ -27,8 +27,8 @@ public class Player extends AnimObject implements Touchable {
         super(x, y, 0, 0, R.mipmap.idle, 8, 10);
         base = y;
 
-        fabNormal = new FrameAnimationBitmap(R.mipmap.idle, 8, 10);
-        fabAttack = new FrameAnimationBitmap(R.mipmap.attack, 8, 4);
+        fabNormal = new FrameAnimationBitmap(R.mipmap.idle, 8, 6);
+        fabAttack = new FrameAnimationBitmap(R.mipmap.attack, 8, 6);
     }
 
     public enum AnimState{
