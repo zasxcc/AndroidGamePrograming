@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class GameWorld {
     private static final String TAG = GameWorld.class.getSimpleName();
-    protected RecyclePool recyclePool;
+    protected RecyclePool recyclePool = new RecyclePool();
     protected ArrayList<ArrayList<GameObject>> layers;
     protected ArrayList<GameObject> trash = new ArrayList<>();
     protected Touchable capturingObject;
@@ -44,6 +44,13 @@ public class GameWorld {
     }
 
     public void add(final int layerIndex, final GameObject obj) {
+        ArrayList<GameObject> objects = layers.get(layerIndex);
+        int index = objects.indexOf(obj);
+        if (index >= 0) {
+            Log.e(TAG, "Duplicated: " + index + " / " + objects.size() + " : " + obj);
+            return;
+        }
+
         UiBridge.post(new Runnable() {
             @Override
             public void run() {
@@ -102,5 +109,10 @@ public class GameWorld {
             }
         }
         return false;
+    }
+
+    public void removeObject(GameObject gameObject)
+    {
+        trash.add(gameObject);
     }
 }
