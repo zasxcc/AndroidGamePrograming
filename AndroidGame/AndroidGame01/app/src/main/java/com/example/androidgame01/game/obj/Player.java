@@ -24,11 +24,11 @@ public class Player extends AnimObject implements Touchable {
     private float base;
 
     public Player(float x, float y) {
-        super(x, y, 0, 0, R.mipmap.idle, 8, 10);
+        super(x, y, 0, 0, R.mipmap.ryu, 8, 0);
         base = y;
 
-        fabNormal = new FrameAnimationBitmap(R.mipmap.idle, 8, 6);
-        fabAttack = new FrameAnimationBitmap(R.mipmap.attack, 8, 6);
+        fabNormal = new FrameAnimationBitmap(R.mipmap.ryu, 10, 0);
+        fabAttack = new FrameAnimationBitmap(R.mipmap.ryu_1, 10, 5);
     }
 
     public enum AnimState{
@@ -52,11 +52,11 @@ public class Player extends AnimObject implements Touchable {
 
     }
     public void Attack(){
-        fab = new FrameAnimationBitmap(R.mipmap.attack, 16, 4);
+        fab = new FrameAnimationBitmap(R.mipmap.attack, 18, 6);
     }
     public void idle()
     {
-        fab = new FrameAnimationBitmap(R.mipmap.idle, 8, 10);
+        fab = new FrameAnimationBitmap(R.mipmap.idle, 8, 6);
     }
 
 
