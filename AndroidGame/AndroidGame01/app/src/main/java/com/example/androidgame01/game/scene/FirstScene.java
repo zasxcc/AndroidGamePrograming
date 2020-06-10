@@ -8,6 +8,7 @@ import com.example.androidgame01.framework.main.UiBridge;
 import com.example.androidgame01.framework.obj.ScoreObject;
 import com.example.androidgame01.framework.obj.ui.Button;
 import com.example.androidgame01.game.obj.Ball;
+import com.example.androidgame01.game.obj.Boss1;
 import com.example.androidgame01.game.obj.Enemy1;
 import com.example.androidgame01.game.obj.Player;
 
@@ -24,6 +25,7 @@ public class FirstScene extends GameScene {
     private Ball ball;
     private Player player;
     private Enemy1 enemy1;
+    private Boss1 boss1;
     private ScoreObject scoreObject;
     private GameTimer timer;
     private Button attack;
@@ -80,6 +82,12 @@ public class FirstScene extends GameScene {
             enemy1.setMove(false);
         }
 
+        if(boss1.getX() - 200 < player.getX())
+        {
+            boss1.setAimState(Boss1.AnimState.attack);
+            boss1.setMove(false);
+        }
+
     }
 
     @Override
@@ -101,8 +109,10 @@ public class FirstScene extends GameScene {
         }
         player = new Player(300,800);
         enemy1 = new Enemy1(1000, 800, -50, 0);
+        boss1 = new Boss1(1200, 800, -80, 0);
         gameWorld.add(Layer.player.ordinal(), player);
         gameWorld.add(Layer.enemy.ordinal(), enemy1);
+        gameWorld.add(Layer.enemy.ordinal(), boss1);
         //gameWorld.add(Layer.bg.ordinal(), new CityBackground());
         int screenWidth = UiBridge.metrics.size.x;
         RectF rbox = new RectF(UiBridge.x(-52), UiBridge.y(20), UiBridge.x(-20), UiBridge.y(62));
