@@ -7,41 +7,35 @@ import com.example.androidgame01.framework.res.bitmap.FrameAnimationBitmap;
 
 import kr.ac.kpu.game.scgyong.gameskeleton.R;
 
-public class Enemy3 extends AnimObject {
+public class Boss2 extends AnimObject {
     private float dx, dy;
     private boolean bMove = true;
     private FrameAnimationBitmap fabNormal;
     private FrameAnimationBitmap fabAttack;
-    private FrameAnimationBitmap fabIdle;
     private static final float GRAVITY_SPEED = 1000;
     private static final float JUMP_POWER = -500;
     private boolean jumping;
     private float speed;
     private float base;
 
-    public Enemy3(float x, float y, float dx, float dy) {
-        super(x, y, 0, 0, R.mipmap.monster3_move, 8, 0);
+    public Boss2(float x, float y, float dx, float dy) {
+        super(x, y, 0, 0, R.mipmap.boss2_move, 8, 0);
         base = y;
         this.dx = dx;
         this.dy = dy;
-        fabNormal = new FrameAnimationBitmap(R.mipmap.monster3_move, 10, 0);
-        fabAttack = new FrameAnimationBitmap(R.mipmap.monster3_attack1, 10, 0);
-        fabIdle = new FrameAnimationBitmap(R.mipmap.monster1_attack, 10, 0);
+        fabNormal = new FrameAnimationBitmap(R.mipmap.boss2_idle, 10, 0);
+        fabAttack = new FrameAnimationBitmap(R.mipmap.boss2_attack1, 10, 0);
     }
 
     public enum AnimState {
-        normal, attack, idle
+        normal, attack
     }
 
     public void setAimState(AnimState state) {
         if (state == AnimState.normal) {
             fab = fabNormal;
-        }
-        else if(state == AnimState.attack){
+        } else {
             fab = fabAttack;
-        }
-        else if(state == AnimState.idle) {
-            fab = fabIdle;
         }
     }
 

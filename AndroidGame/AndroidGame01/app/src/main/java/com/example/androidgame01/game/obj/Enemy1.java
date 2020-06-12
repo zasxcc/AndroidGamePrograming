@@ -12,6 +12,7 @@ public class Enemy1 extends AnimObject {
     private boolean bMove = true;
     private FrameAnimationBitmap fabNormal;
     private FrameAnimationBitmap fabAttack;
+    private FrameAnimationBitmap fabIdle;
     private static final float GRAVITY_SPEED = 1000;
     private static final float JUMP_POWER = -500;
     private boolean jumping;
@@ -23,19 +24,24 @@ public class Enemy1 extends AnimObject {
         base = y;
         this.dx = dx;
         this.dy = dy;
-        fabNormal = new FrameAnimationBitmap(R.mipmap.monster1_move, 10, 0);
-        fabAttack = new FrameAnimationBitmap(R.mipmap.monster1_attack, 10, 0);
+        fabNormal = new FrameAnimationBitmap(R.mipmap.monster1_move, 10, 6);
+        fabAttack = new FrameAnimationBitmap(R.mipmap.monster1_attack, 4, 7);
+        fabIdle = new FrameAnimationBitmap(R.mipmap.monster1_attack, 10, 0);
     }
 
     public enum AnimState {
-        normal, attack
+        normal, attack, idle
     }
 
     public void setAimState(AnimState state) {
         if (state == AnimState.normal) {
             fab = fabNormal;
-        } else {
+        }
+        else if(state == AnimState.attack){
             fab = fabAttack;
+        }
+        else if(state == AnimState.idle) {
+            fab = fabIdle;
         }
     }
 

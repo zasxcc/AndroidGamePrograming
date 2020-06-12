@@ -52,7 +52,7 @@ public class Player extends AnimObject implements Touchable {
 
     }
     public void Attack(){
-        fab = new FrameAnimationBitmap(R.mipmap.attack, 18, 6);
+        fab = new FrameAnimationBitmap(R.mipmap.attack, 30, 6);
     }
     public void idle()
     {
