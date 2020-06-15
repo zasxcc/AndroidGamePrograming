@@ -94,7 +94,7 @@ public class FirstScene extends GameScene {
         }
 
         //플레이어 적 충돌
-        if(enemy1.getX() - 200 < player.getX())
+        if(enemy1.getX() - 200 < player.getX() && enemy1.bAttack == false)
         {
             enemy1.setAimState(Enemy1.AnimState.attack);
             enemy1.setMove(false);

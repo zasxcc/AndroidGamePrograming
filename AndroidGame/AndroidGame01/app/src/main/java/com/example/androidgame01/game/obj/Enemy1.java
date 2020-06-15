@@ -13,20 +13,18 @@ public class Enemy1 extends AnimObject {
     private FrameAnimationBitmap fabNormal;
     private FrameAnimationBitmap fabAttack;
     private FrameAnimationBitmap fabIdle;
-    private static final float GRAVITY_SPEED = 1000;
-    private static final float JUMP_POWER = -500;
-    private boolean jumping;
-    private float speed;
-    private float base;
+    private AnimState state;
+    private int attackDelay = 100;
+    public boolean bAttack = false;
 
     public Enemy1(float x, float y, float dx, float dy) {
         super(x, y, 0, 0, R.mipmap.monster1_move, 8, 0);
-        base = y;
         this.dx = dx;
         this.dy = dy;
+        state = AnimState.normal;
         fabNormal = new FrameAnimationBitmap(R.mipmap.monster1_move, 10, 6);
         fabAttack = new FrameAnimationBitmap(R.mipmap.monster1_attack, 4, 7);
-        fabIdle = new FrameAnimationBitmap(R.mipmap.monster1_attack, 10, 0);
+        fabIdle = new FrameAnimationBitmap(R.mipmap.monster1_idle, 10, 0);
     }
 
     public enum AnimState {
@@ -34,13 +32,17 @@ public class Enemy1 extends AnimObject {
     }
 
     public void setAimState(AnimState state) {
-        if (state == AnimState.normal) {
+        this.state = state;
+
+        if (this.state == AnimState.normal) {
             fab = fabNormal;
         }
-        else if(state == AnimState.attack){
+        else if(this.state == AnimState.attack){
+            bAttack = true;
             fab = fabAttack;
+            fab.reset();
         }
-        else if(state == AnimState.idle) {
+        else if(this.state == AnimState.idle) {
             fab = fabIdle;
         }
     }
@@ -62,6 +64,24 @@ public class Enemy1 extends AnimObject {
                 x += dx * seconds;
             }
         }
+        if(bAttack == true)
+        {
+            if(this.state == AnimState.idle)
+            {
+                attackDelay--;
+            }
 
+            if(fab.done())
+            {
+                setAimState(AnimState.idle);
+            }
+
+            if(attackDelay <= 0)
+            {
+                setAimState(AnimState.attack);
+                attackDelay = 100;
+            }
+
+        }
     }
 }
