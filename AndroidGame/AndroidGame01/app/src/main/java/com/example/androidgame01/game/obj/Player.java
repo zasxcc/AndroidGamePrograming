@@ -49,8 +49,13 @@ public class Player extends AnimObject implements Touchable {
     public void Guard()
     {
         fab = new FrameAnimationBitmap(R.mipmap.def, 8, 4);
-
     }
+
+    public void PerfectGuard()
+    {
+        fab = new FrameAnimationBitmap(R.mipmap.boss1_hit, 8, 0);
+    }
+
     public void Attack(){
         fab = new FrameAnimationBitmap(R.mipmap.attack, 30, 6);
     }
@@ -66,12 +71,6 @@ public class Player extends AnimObject implements Touchable {
     }
 
     public void update() {
-//        float seconds = GameTimer.getTimeDiffSeconds();
-//        x += dx * seconds;
-//        float radius = getRadius();
-//        int screenWidth = UiBridge.metrics.size.x;
-//        int screenHeight = UiBridge.metrics.size.y;
-
         if(jumping)
         {
             setAimState(AnimState.attack);
@@ -85,7 +84,6 @@ public class Player extends AnimObject implements Touchable {
                 y = base;
             }
         }
-
     }
 
     @Override

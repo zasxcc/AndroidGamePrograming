@@ -9,13 +9,12 @@ import kr.ac.kpu.game.scgyong.gameskeleton.R;
 
 public class Enemy1 extends AnimObject {
     private float dx, dy;
-    private boolean bMove = true;
+
     private FrameAnimationBitmap fabNormal;
     private FrameAnimationBitmap fabAttack;
     private FrameAnimationBitmap fabIdle;
-    private AnimState state;
-    private int attackDelay = 100;
-    public boolean bAttack = false;
+    public AnimState state;
+
 
     public Enemy1(float x, float y, float dx, float dy) {
         super(x, y, 0, 0, R.mipmap.monster1_move, 8, 0);
@@ -27,10 +26,8 @@ public class Enemy1 extends AnimObject {
         fabIdle = new FrameAnimationBitmap(R.mipmap.monster1_idle, 10, 0);
     }
 
-    public enum AnimState {
-        normal, attack, idle
-    }
 
+    @Override
     public void setAimState(AnimState state) {
         this.state = state;
 
@@ -47,10 +44,7 @@ public class Enemy1 extends AnimObject {
         }
     }
 
-    public void setMove(boolean move) {
-        bMove = move;
 
-    }
 
     @Override
     public float getRadius() {
@@ -74,14 +68,21 @@ public class Enemy1 extends AnimObject {
             if(fab.done())
             {
                 setAimState(AnimState.idle);
+                isAttackFrame = false;
+                attackFrame = 0;
             }
 
             if(attackDelay <= 0)
             {
                 setAimState(AnimState.attack);
+                isAttackFrame = true;
                 attackDelay = 100;
             }
+        }
 
+        if(isAttackFrame)
+        {
+            attackFrame++;
         }
     }
 }

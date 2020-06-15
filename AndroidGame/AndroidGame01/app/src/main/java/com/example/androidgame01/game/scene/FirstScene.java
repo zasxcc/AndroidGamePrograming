@@ -5,11 +5,14 @@ import android.graphics.RectF;
 import com.example.androidgame01.framework.main.GameScene;
 import com.example.androidgame01.framework.main.GameTimer;
 import com.example.androidgame01.framework.main.UiBridge;
+import com.example.androidgame01.framework.obj.AnimObject;
 import com.example.androidgame01.framework.obj.ScoreObject;
 import com.example.androidgame01.framework.obj.ui.Button;
 import com.example.androidgame01.game.obj.Ball;
 import com.example.androidgame01.game.obj.Boss1;
 import com.example.androidgame01.game.obj.Enemy1;
+import com.example.androidgame01.game.obj.Enemy2;
+import com.example.androidgame01.game.obj.Enemy3;
 import com.example.androidgame01.game.obj.Player;
 import com.example.androidgame01.game.obj.Slash;
 
@@ -32,7 +35,11 @@ public class FirstScene extends GameScene {
             new Slash(0,0,0,0), new Slash(0,0,0,0), new Slash(0,0,0,0)
     };
     private Player player;
-    private Enemy1 enemy1;
+    private AnimObject[] enemy = {
+            new Enemy1(1000, 800, -100, 0), new Enemy2(1400, 800, -100, 0), new Enemy1(1000, 800, -100, 0),
+            new Enemy2(1000, 800, -100, 0), new Enemy1(1000, 800, -100, 0), new Enemy2(1000, 800, -100, 0),
+            new Enemy3(1000, 800, -100, 0), new Enemy3(1000, 800, -100, 0), new Enemy3(1000, 800, -100, 0)
+    };
     private Boss1 boss1;
     private ScoreObject scoreObject;
     private GameTimer timer;
@@ -56,18 +63,19 @@ public class FirstScene extends GameScene {
             timer.reset();
         }
 
-        //실드 버튼 눌렀을때
-        if(shield.pressed == true)
-        {
-            player.Guard();
-            shield.capturing = false;
+        for(int i = 0; i<9; ++i) {
+            //실드 버튼 눌렀을때
+            if (shield.pressed == true) {
+                player.Guard();
+                shield.capturing = false;
+            }
+            //실드 버튼 땟을떄
+            else if (shield.pressed == false && shield.capturing == false) {
+                player.idle();
+                shield.capturing = true;
+            }
         }
-        //실드 버튼 땟을떄
-        else if(shield.pressed == false && shield.capturing == false)
-        {
-            player.idle();
-            shield.capturing = true;
-        }
+
         //어택 버튼 눌럿을때
         if(attack.pressed == true)
         {
@@ -94,18 +102,20 @@ public class FirstScene extends GameScene {
         }
 
         //플레이어 적 충돌
-        if(enemy1.getX() - 200 < player.getX() && enemy1.bAttack == false)
-        {
-            enemy1.setAimState(Enemy1.AnimState.attack);
-            enemy1.setMove(false);
+        for(int i = 0; i<9; ++i) {
+            if (enemy[i].getX() - 200 < player.getX() && enemy[i].bAttack == false) {
+                enemy[i].setAimState(AnimObject.AnimState.attack);
+                enemy[i].setMove(false);
+            }
         }
 
-        //Slash 적 충돌
-        if(slash != null){
-            for(int i = 0; i<15; ++i)
-            {
-                if(slash[i].getX() > enemy1.getX())
-                    slash[i].destroy();
+        for(int i = 0; i<15; ++i) {
+            //Slash 적 충돌
+            if (slash != null) {
+                for (int j = 0; j < 9; ++j) {
+                    if (slash[i].getX() > enemy[j].getX())
+                        slash[i].destroy();
+                }
             }
         }
     }
@@ -129,12 +139,12 @@ public class FirstScene extends GameScene {
         }
 
         player = new Player(300,800);
-        enemy1 = new Enemy1(1000, 800, -50, 0);
+
         //boss1 = new Boss1(1200, 800, -80, 0);
 
         gameWorld.add(Layer.player.ordinal(), player);
-        gameWorld.add(Layer.enemy.ordinal(), enemy1);
-        gameWorld.add(Layer.enemy.ordinal(), boss1);
+        gameWorld.add(Layer.enemy.ordinal(), enemy[0]);
+        gameWorld.add(Layer.enemy.ordinal(), enemy[1]);
         //gameWorld.add(Layer.bg.ordinal(), new CityBackground());
         int screenWidth = UiBridge.metrics.size.x;
         RectF rbox = new RectF(UiBridge.x(-52), UiBridge.y(20), UiBridge.x(-20), UiBridge.y(62));

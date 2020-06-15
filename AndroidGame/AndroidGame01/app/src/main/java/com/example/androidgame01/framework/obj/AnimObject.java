@@ -13,6 +13,17 @@ public class AnimObject extends GameObject {
     protected final RectF dstRect;
     protected final int width, height;
 
+    //교수님 코드 말고 추가한 코드///////////
+    protected int attackDelay = 100;
+    public boolean bAttack = false;
+    protected int attackFrame = 0;
+    protected boolean isAttackFrame = false;
+    public boolean bMove = true;
+
+    public enum AnimState {
+        normal, attack, idle
+    }
+    /////////////////////////////////////
     public AnimObject(float x, float y, int width, int height, int resId, int fps, int count) {
         fab = new FrameAnimationBitmap(resId, fps, count);
         this.x = x;
@@ -47,4 +58,15 @@ public class AnimObject extends GameObject {
         dstRect.bottom = y + halfHeight;
         fab.draw(canvas, dstRect, null);
     }
+
+    ////////오버라이드 위한 코드
+    public void setMove(boolean move) {
+        bMove = move;
+    }
+
+    public void setAimState(AnimState state)
+    {
+
+    }
+    /////////////////////////////
 }
