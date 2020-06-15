@@ -19,12 +19,12 @@ public class Boss1 extends AnimObject {
     private float base;
 
     public Boss1(float x, float y, float dx, float dy) {
-        super(x, y, 0, 0, R.mipmap.boss1_move, 8, 0);
+        super(x, y, 0, 0, R.mipmap.boss1_move, 8, 5);
         base = y;
         this.dx = dx;
         this.dy = dy;
-        fabNormal = new FrameAnimationBitmap(R.mipmap.boss1_idle, 10, 0);
-        fabAttack = new FrameAnimationBitmap(R.mipmap.boss1_attack, 10, 0);
+        fabNormal = new FrameAnimationBitmap(R.mipmap.boss1_idle, 10, 2);
+        fabAttack = new FrameAnimationBitmap(R.mipmap.boss1_attack, 10, 4);
     }
 
     public enum AnimState {

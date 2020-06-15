@@ -134,7 +134,7 @@ public class FirstScene extends GameScene {
 
         gameWorld.add(Layer.player.ordinal(), player);
         gameWorld.add(Layer.enemy.ordinal(), enemy1);
-        //gameWorld.add(Layer.enemy.ordinal(), boss1);
+        gameWorld.add(Layer.enemy.ordinal(), boss1);
         //gameWorld.add(Layer.bg.ordinal(), new CityBackground());
         int screenWidth = UiBridge.metrics.size.x;
         RectF rbox = new RectF(UiBridge.x(-52), UiBridge.y(20), UiBridge.x(-20), UiBridge.y(62));
