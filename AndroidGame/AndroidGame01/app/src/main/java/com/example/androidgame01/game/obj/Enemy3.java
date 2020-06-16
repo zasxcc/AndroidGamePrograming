@@ -14,7 +14,7 @@ public class Enemy3 extends AnimObject {
     private FrameAnimationBitmap fabAttack;
     private FrameAnimationBitmap fabIdle;
     public AnimState state;
-
+    public int HP = 200;
 
     public Enemy3(float x, float y, float dx, float dy) {
         super(x, y, 0, 0, R.mipmap.monster3_move, 8, 0);
@@ -25,7 +25,17 @@ public class Enemy3 extends AnimObject {
         fabAttack = new FrameAnimationBitmap(R.mipmap.monster3_attack1, 4, 7);
         fabIdle = new FrameAnimationBitmap(R.mipmap.monster3_idle, 10, 0);
     }
+    @Override
+    public void calculateDamage(int damage)
+    {
+        HP = HP-damage;
+    }
 
+    @Override
+    public void enemyDeath()
+    {
+
+    }
 
     @Override
     public void setAimState(AnimState state) {
@@ -36,6 +46,7 @@ public class Enemy3 extends AnimObject {
         }
         else if(this.state == AnimState.attack){
             bAttack = true;
+            isAttackFrame = true;
             fab = fabAttack;
             fab.reset();
         }
@@ -83,6 +94,11 @@ public class Enemy3 extends AnimObject {
         if(isAttackFrame)
         {
             attackFrame++;
+        }
+
+        if(HP <= 0)
+        {
+            enemyDeath();
         }
     }
 }

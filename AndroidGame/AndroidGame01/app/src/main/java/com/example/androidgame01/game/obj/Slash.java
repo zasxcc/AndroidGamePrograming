@@ -32,6 +32,7 @@ public class Slash extends AnimObject {
     }
     public void destroy() {
         this.y = 9999;
+        this.x = -9999;
         this.dx = 0;
     }
 }

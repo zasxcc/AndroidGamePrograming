@@ -16,7 +16,7 @@ public class AnimObject extends GameObject {
     //교수님 코드 말고 추가한 코드///////////
     protected int attackDelay = 100;
     public boolean bAttack = false;
-    protected int attackFrame = 0;
+    public int attackFrame = 0;
     protected boolean isAttackFrame = false;
     public boolean bMove = true;
 
@@ -65,8 +65,12 @@ public class AnimObject extends GameObject {
     }
 
     public void setAimState(AnimState state)
-    {
+    { }
 
-    }
+    public void calculateDamage(int damage)
+    { }
+
+    public void enemyDeath()
+    { }
     /////////////////////////////
 }

@@ -14,7 +14,7 @@ public class Enemy1 extends AnimObject {
     private FrameAnimationBitmap fabAttack;
     private FrameAnimationBitmap fabIdle;
     public AnimState state;
-
+    public int HP = 100;
 
     public Enemy1(float x, float y, float dx, float dy) {
         super(x, y, 0, 0, R.mipmap.monster1_move, 8, 0);
@@ -25,7 +25,19 @@ public class Enemy1 extends AnimObject {
         fabAttack = new FrameAnimationBitmap(R.mipmap.monster1_attack, 4, 7);
         fabIdle = new FrameAnimationBitmap(R.mipmap.monster1_idle, 10, 0);
     }
+    @Override
+    public void calculateDamage(int damage)
+    {
+        HP = HP-damage;
+    }
 
+    @Override
+    public void enemyDeath()
+    {
+        //죽는거 확인을 위한 임시 코드
+        this.x = 900;
+        this.y = 900;
+    }
 
     @Override
     public void setAimState(AnimState state) {
@@ -36,6 +48,7 @@ public class Enemy1 extends AnimObject {
         }
         else if(this.state == AnimState.attack){
             bAttack = true;
+            isAttackFrame = true;
             fab = fabAttack;
             fab.reset();
         }
@@ -83,6 +96,11 @@ public class Enemy1 extends AnimObject {
         if(isAttackFrame)
         {
             attackFrame++;
+        }
+
+        if(HP <= 0)
+        {
+            enemyDeath();
         }
     }
 }

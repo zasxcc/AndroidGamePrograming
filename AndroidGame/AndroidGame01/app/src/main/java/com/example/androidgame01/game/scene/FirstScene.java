@@ -48,6 +48,7 @@ public class FirstScene extends GameScene {
     private int attackCheckCount = 0;
     private int slashCount = 0;
     private boolean IsAttackcount = false;
+    private boolean isPerfectGuard = true;
 
     @Override
     protected int getLayerCount() {
@@ -63,18 +64,31 @@ public class FirstScene extends GameScene {
             timer.reset();
         }
 
-        for(int i = 0; i<9; ++i) {
-            //실드 버튼 눌렀을때
-            if (shield.pressed == true) {
-                player.Guard();
-                shield.capturing = false;
-            }
-            //실드 버튼 땟을떄
-            else if (shield.pressed == false && shield.capturing == false) {
-                player.idle();
-                shield.capturing = true;
-            }
+
+        //실드 버튼 눌렀을때
+        //for 문돌리면 이상하게 안댐.. 그래서 일단 하드코딩으로 임시방편
+        //적들이 공격하는 타이밍에 맞춰 실드를 누른다면
+        if (shield.pressed == true && ((enemy[0].attackFrame > 20 && enemy[0].attackFrame < 70) || (enemy[1].attackFrame > 20 && enemy[1].attackFrame < 70) ||
+                (enemy[2].attackFrame > 20 && enemy[2].attackFrame < 70) || (enemy[3].attackFrame > 20 && enemy[3].attackFrame < 70) ||
+                (enemy[4].attackFrame > 20 && enemy[4].attackFrame < 70) || (enemy[5].attackFrame > 20 && enemy[5].attackFrame < 70) ||
+                (enemy[6].attackFrame > 20 && enemy[6].attackFrame < 70) || (enemy[7].attackFrame > 20 && enemy[7].attackFrame < 70) ||
+                (enemy[8].attackFrame > 20 && enemy[8].attackFrame < 70)) && isPerfectGuard == true) {
+            player.PerfectGuard();
+            shield.capturing = false;
         }
+        //그냥 실드 눌럿을 경우
+        else if (shield.pressed == true) {
+            player.Guard();
+            shield.capturing = false;
+            isPerfectGuard = false;
+        }
+        //실드 버튼 땟을떄
+        else if (shield.pressed == false && shield.capturing == false) {
+            player.idle();
+            shield.capturing = true;
+            isPerfectGuard = true;
+        }
+
 
         //어택 버튼 눌럿을때
         if(attack.pressed == true)
@@ -113,8 +127,10 @@ public class FirstScene extends GameScene {
             //Slash 적 충돌
             if (slash != null) {
                 for (int j = 0; j < 9; ++j) {
-                    if (slash[i].getX() > enemy[j].getX())
+                    if (slash[i].getX() > enemy[j].getX()) {
                         slash[i].destroy();
+                        enemy[j].calculateDamage(50);
+                    }
                 }
             }
         }
@@ -144,7 +160,7 @@ public class FirstScene extends GameScene {
 
         gameWorld.add(Layer.player.ordinal(), player);
         gameWorld.add(Layer.enemy.ordinal(), enemy[0]);
-        gameWorld.add(Layer.enemy.ordinal(), enemy[1]);
+        //gameWorld.add(Layer.enemy.ordinal(), enemy[1]);
         //gameWorld.add(Layer.bg.ordinal(), new CityBackground());
         int screenWidth = UiBridge.metrics.size.x;
         RectF rbox = new RectF(UiBridge.x(-52), UiBridge.y(20), UiBridge.x(-20), UiBridge.y(62));
