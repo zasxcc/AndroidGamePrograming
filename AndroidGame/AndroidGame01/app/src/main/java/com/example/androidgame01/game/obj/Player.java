@@ -2,7 +2,6 @@ package com.example.androidgame01.game.obj;
 
 
 import android.graphics.Canvas;
-import android.util.Log;
 import android.view.MotionEvent;
 
 import com.example.androidgame01.framework.iface.Touchable;
@@ -23,6 +22,7 @@ public class Player extends AnimObject implements Touchable {
     private boolean jumping;
     private float speed;
     private float base;
+    public int HP = 100;
 
     public Player(float x, float y) {
         super(x, y, 0, 0, R.mipmap.ryu, 8, 0);
@@ -54,7 +54,7 @@ public class Player extends AnimObject implements Touchable {
 
     public void PerfectGuard()
     {
-        fab = new FrameAnimationBitmap(R.mipmap.boss1_hit, 8, 0);
+        fab = new FrameAnimationBitmap(R.mipmap.perdef, 8, 0);
     }
 
     public void Attack(){
@@ -87,6 +87,17 @@ public class Player extends AnimObject implements Touchable {
         }
     }
 
+    public void calculateDamage(int damage)
+    {
+        HP = HP-damage;
+        if(HP <= 0)
+            playerDeath();
+    }
+    public void playerDeath()
+    {
+        //여기다 죽으면 어떻게될지 코드
+    }
+
     public void draw(Canvas canvas) {
         float width = UiBridge.x(fab.getWidth());
         float height = UiBridge.y(fab.getHeight());
@@ -102,7 +113,6 @@ public class Player extends AnimObject implements Touchable {
 
     @Override
     public boolean onTouchEvent(MotionEvent e) {
-        Log.d("asd","asd");
         if(e.getAction() != MotionEvent.ACTION_DOWN)
         {
             return false;

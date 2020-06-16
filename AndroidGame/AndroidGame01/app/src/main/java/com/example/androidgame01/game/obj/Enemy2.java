@@ -14,17 +14,16 @@ public class Enemy2 extends AnimObject {
     private FrameAnimationBitmap fabAttack;
     private FrameAnimationBitmap fabIdle;
     public AnimState state;
-    public int HP = 150;
-
+    public int HP = 100;
 
     public Enemy2(float x, float y, float dx, float dy) {
-        super(x, y, 0, 0, R.mipmap.monster2_move, 8, 0);
+        super(x, y, 0, 0, R.mipmap.monster2_move, 8, 5);
         this.dx = dx;
         this.dy = dy;
         state = AnimState.normal;
-        fabNormal = new FrameAnimationBitmap(R.mipmap.monster2_move, 10, 6);
-        fabAttack = new FrameAnimationBitmap(R.mipmap.monster2_attack, 4, 7);
-        fabIdle = new FrameAnimationBitmap(R.mipmap.monster2_idle, 10, 0);
+        fabNormal = new FrameAnimationBitmap(R.mipmap.monster2_move, 10, 5);
+        fabAttack = new FrameAnimationBitmap(R.mipmap.monster2_attack2, 4, 9);
+        fabIdle = new FrameAnimationBitmap(R.mipmap.monster2_idle, 10, 5);
     }
     @Override
     public void calculateDamage(int damage)
@@ -35,7 +34,18 @@ public class Enemy2 extends AnimObject {
     @Override
     public void enemyDeath()
     {
-
+        respawnCount++;
+        if(respawnCount == 100)
+        {
+            initState();
+            setAimState(AnimState.normal);
+            isDeath = false;
+            respawnCount = 0;
+            this.x = 1000;
+            this.y = 800;
+            this.dx = -100;
+            this.HP = 100;
+        }
     }
 
     @Override
@@ -98,6 +108,15 @@ public class Enemy2 extends AnimObject {
         }
 
         if(HP <= 0)
+        {
+            isDeath = true;
+            this.x = 11500;
+            this.y = -500;
+            this.dx = 0;
+
+        }
+
+        if(isDeath)
         {
             enemyDeath();
         }

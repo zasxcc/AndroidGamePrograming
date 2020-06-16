@@ -1,6 +1,7 @@
 package com.example.androidgame01.game.scene;
 
 import android.graphics.RectF;
+import android.util.Log;
 
 import com.example.androidgame01.framework.main.GameScene;
 import com.example.androidgame01.framework.main.GameTimer;
@@ -36,8 +37,8 @@ public class FirstScene extends GameScene {
     };
     private Player player;
     private AnimObject[] enemy = {
-            new Enemy1(1000, 800, -100, 0), new Enemy2(1400, 800, -100, 0), new Enemy1(1000, 800, -100, 0),
-            new Enemy2(1000, 800, -100, 0), new Enemy1(1000, 800, -100, 0), new Enemy2(1000, 800, -100, 0),
+            new Enemy1(1000, 800, -100, 0), new Enemy1(1400, 800, -100, 0), new Enemy1(1000, 800, -100, 0),
+            new Enemy2(1000, 800, -100, 0), new Enemy2(1000, 800, -100, 0), new Enemy2(1000, 800, -100, 0),
             new Enemy3(1000, 800, -100, 0), new Enemy3(1000, 800, -100, 0), new Enemy3(1000, 800, -100, 0)
     };
     private Boss1 boss1;
@@ -49,6 +50,10 @@ public class FirstScene extends GameScene {
     private int slashCount = 0;
     private boolean IsAttackcount = false;
     private boolean isPerfectGuard = true;
+
+    int ENEMY1_MINATTACKFRAME = 20;
+    int ENEMY1_MAXATTACKFRAME = 50;
+    int ENEMY1_ATTACKTRIGGER = 55;
 
     @Override
     protected int getLayerCount() {
@@ -68,13 +73,22 @@ public class FirstScene extends GameScene {
         //실드 버튼 눌렀을때
         //for 문돌리면 이상하게 안댐.. 그래서 일단 하드코딩으로 임시방편
         //적들이 공격하는 타이밍에 맞춰 실드를 누른다면
-        if (shield.pressed == true && ((enemy[0].attackFrame > 20 && enemy[0].attackFrame < 70) || (enemy[1].attackFrame > 20 && enemy[1].attackFrame < 70) ||
-                (enemy[2].attackFrame > 20 && enemy[2].attackFrame < 70) || (enemy[3].attackFrame > 20 && enemy[3].attackFrame < 70) ||
-                (enemy[4].attackFrame > 20 && enemy[4].attackFrame < 70) || (enemy[5].attackFrame > 20 && enemy[5].attackFrame < 70) ||
-                (enemy[6].attackFrame > 20 && enemy[6].attackFrame < 70) || (enemy[7].attackFrame > 20 && enemy[7].attackFrame < 70) ||
-                (enemy[8].attackFrame > 20 && enemy[8].attackFrame < 70)) && isPerfectGuard == true) {
+        if (shield.pressed == true && (
+                (enemy[0].attackFrame > ENEMY1_MINATTACKFRAME && enemy[0].attackFrame < ENEMY1_MAXATTACKFRAME) || (enemy[1].attackFrame > ENEMY1_MINATTACKFRAME && enemy[1].attackFrame < ENEMY1_MAXATTACKFRAME) ||
+                (enemy[2].attackFrame > ENEMY1_MINATTACKFRAME && enemy[2].attackFrame < ENEMY1_MAXATTACKFRAME) || (enemy[3].attackFrame > ENEMY1_MINATTACKFRAME && enemy[3].attackFrame < ENEMY1_MAXATTACKFRAME) ||
+                (enemy[4].attackFrame > ENEMY1_MINATTACKFRAME && enemy[4].attackFrame < ENEMY1_MAXATTACKFRAME) || (enemy[5].attackFrame > ENEMY1_MINATTACKFRAME && enemy[5].attackFrame < ENEMY1_MAXATTACKFRAME) ||
+                (enemy[6].attackFrame > ENEMY1_MINATTACKFRAME && enemy[6].attackFrame < ENEMY1_MAXATTACKFRAME) || (enemy[7].attackFrame > ENEMY1_MINATTACKFRAME && enemy[7].attackFrame < ENEMY1_MAXATTACKFRAME) ||
+                (enemy[8].attackFrame > ENEMY1_MINATTACKFRAME && enemy[8].attackFrame < ENEMY1_MAXATTACKFRAME)) && isPerfectGuard == true) {
             player.PerfectGuard();
             shield.capturing = false;
+        }
+        else if (shield.pressed == false && ((enemy[0].attackFrame == ENEMY1_ATTACKTRIGGER) || (enemy[1].attackFrame == ENEMY1_ATTACKTRIGGER) ||
+                (enemy[2].attackFrame == ENEMY1_ATTACKTRIGGER) || (enemy[3].attackFrame == ENEMY1_ATTACKTRIGGER ) ||
+                (enemy[4].attackFrame == ENEMY1_ATTACKTRIGGER) || (enemy[5].attackFrame == ENEMY1_ATTACKTRIGGER ) ||
+                (enemy[6].attackFrame == ENEMY1_ATTACKTRIGGER) || (enemy[7].attackFrame == ENEMY1_ATTACKTRIGGER ) ||
+                (enemy[8].attackFrame == ENEMY1_ATTACKTRIGGER) )) {
+            player.calculateDamage(10);
+            Log.d("asd","Player HP : " + player.HP);
         }
         //그냥 실드 눌럿을 경우
         else if (shield.pressed == true) {
@@ -161,6 +175,11 @@ public class FirstScene extends GameScene {
         gameWorld.add(Layer.player.ordinal(), player);
         gameWorld.add(Layer.enemy.ordinal(), enemy[0]);
         //gameWorld.add(Layer.enemy.ordinal(), enemy[1]);
+        gameWorld.add(Layer.enemy.ordinal(), enemy[3]);
+       // gameWorld.add(Layer.enemy.ordinal(), enemy[3]);
+        gameWorld.add(Layer.enemy.ordinal(), enemy[6]);
+
+
         //gameWorld.add(Layer.bg.ordinal(), new CityBackground());
         int screenWidth = UiBridge.metrics.size.x;
         RectF rbox = new RectF(UiBridge.x(-52), UiBridge.y(20), UiBridge.x(-20), UiBridge.y(62));

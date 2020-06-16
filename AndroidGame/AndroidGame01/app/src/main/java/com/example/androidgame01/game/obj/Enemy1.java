@@ -1,10 +1,7 @@
 package com.example.androidgame01.game.obj;
 
 
-import android.graphics.Canvas;
-
 import com.example.androidgame01.framework.main.GameTimer;
-import com.example.androidgame01.framework.main.UiBridge;
 import com.example.androidgame01.framework.obj.AnimObject;
 import com.example.androidgame01.framework.res.bitmap.FrameAnimationBitmap;
 
@@ -24,7 +21,7 @@ public class Enemy1 extends AnimObject {
         this.dx = dx;
         this.dy = dy;
         state = AnimState.normal;
-        fabNormal = new FrameAnimationBitmap(R.mipmap.monster1_move, 10, 0);
+        fabNormal = new FrameAnimationBitmap(R.mipmap.monster1_move, 10, 6);
         fabAttack = new FrameAnimationBitmap(R.mipmap.monster1_attack, 4, 7);
         fabIdle = new FrameAnimationBitmap(R.mipmap.monster1_idle, 10, 8);
     }
@@ -37,9 +34,18 @@ public class Enemy1 extends AnimObject {
     @Override
     public void enemyDeath()
     {
-        //죽는거 확인을 위한 임시 코드
-        this.x = 900;
-        this.y = 900;
+        respawnCount++;
+        if(respawnCount == 100)
+        {
+            initState();
+            setAimState(AnimState.normal);
+            isDeath = false;
+            respawnCount = 0;
+            this.x = 1000;
+            this.y = 800;
+            this.dx = -100;
+            this.HP = 100;
+        }
     }
 
     @Override
@@ -60,18 +66,6 @@ public class Enemy1 extends AnimObject {
         }
     }
 
-    public void draw(Canvas canvas) {
-        float width = UiBridge.x(fab.getWidth());
-        float height = UiBridge.y(fab.getHeight());
-
-        float halfWidth = width / 2;
-        float halfHeight = height / 2;
-        dstRect.left = x - halfWidth;
-        dstRect.top = y - halfHeight;
-        dstRect.right = x + halfWidth;
-        dstRect.bottom = y + halfHeight;
-        fab.draw(canvas, dstRect, null);
-    }
 
 
     @Override
@@ -114,6 +108,14 @@ public class Enemy1 extends AnimObject {
         }
 
         if(HP <= 0)
+        {
+            isDeath = true;
+            this.x = 11500;
+            this.y = -500;
+            this.dx = 0;
+        }
+
+        if(isDeath)
         {
             enemyDeath();
         }

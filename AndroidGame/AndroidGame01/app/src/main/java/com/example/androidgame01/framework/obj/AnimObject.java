@@ -19,7 +19,8 @@ public class AnimObject extends GameObject {
     public int attackFrame = 0;
     protected boolean isAttackFrame = false;
     public boolean bMove = true;
-
+    public boolean isDeath = false;
+    public int respawnCount = 0;
     public enum AnimState {
         normal, attack, idle
     }
@@ -72,5 +73,15 @@ public class AnimObject extends GameObject {
 
     public void enemyDeath()
     { }
+
+    public void initState() {
+        attackDelay = 100;
+        bAttack = false;
+        attackFrame = 0;
+        isAttackFrame = false;
+        bMove = true;
+        isDeath = false;
+        respawnCount = 0;
+    }
     /////////////////////////////
 }
