@@ -1,7 +1,10 @@
 package com.example.androidgame01.game.obj;
 
 
+import android.graphics.Canvas;
+
 import com.example.androidgame01.framework.main.GameTimer;
+import com.example.androidgame01.framework.main.UiBridge;
 import com.example.androidgame01.framework.obj.AnimObject;
 import com.example.androidgame01.framework.res.bitmap.FrameAnimationBitmap;
 
@@ -17,13 +20,13 @@ public class Enemy1 extends AnimObject {
     public int HP = 100;
 
     public Enemy1(float x, float y, float dx, float dy) {
-        super(x, y, 0, 0, R.mipmap.monster1_move, 8, 0);
+        super(x, y, 0, 0, R.mipmap.monster1_move, 8, 6);
         this.dx = dx;
         this.dy = dy;
         state = AnimState.normal;
-        fabNormal = new FrameAnimationBitmap(R.mipmap.monster1_move, 10, 6);
+        fabNormal = new FrameAnimationBitmap(R.mipmap.monster1_move, 10, 0);
         fabAttack = new FrameAnimationBitmap(R.mipmap.monster1_attack, 4, 7);
-        fabIdle = new FrameAnimationBitmap(R.mipmap.monster1_idle, 10, 0);
+        fabIdle = new FrameAnimationBitmap(R.mipmap.monster1_idle, 10, 8);
     }
     @Override
     public void calculateDamage(int damage)
@@ -57,6 +60,18 @@ public class Enemy1 extends AnimObject {
         }
     }
 
+    public void draw(Canvas canvas) {
+        float width = UiBridge.x(fab.getWidth());
+        float height = UiBridge.y(fab.getHeight());
+
+        float halfWidth = width / 2;
+        float halfHeight = height / 2;
+        dstRect.left = x - halfWidth;
+        dstRect.top = y - halfHeight;
+        dstRect.right = x + halfWidth;
+        dstRect.bottom = y + halfHeight;
+        fab.draw(canvas, dstRect, null);
+    }
 
 
     @Override

@@ -1,6 +1,7 @@
 package com.example.androidgame01.game.obj;
 
 
+import android.graphics.Canvas;
 import android.util.Log;
 import android.view.MotionEvent;
 
@@ -84,6 +85,19 @@ public class Player extends AnimObject implements Touchable {
                 y = base;
             }
         }
+    }
+
+    public void draw(Canvas canvas) {
+        float width = UiBridge.x(fab.getWidth());
+        float height = UiBridge.y(fab.getHeight());
+
+        float halfWidth = width / 2;
+        float halfHeight = height / 2;
+        dstRect.left = x - halfWidth;
+        dstRect.top = y - halfHeight;
+        dstRect.right = x + halfWidth;
+        dstRect.bottom = y + halfHeight;
+        fab.draw(canvas, dstRect, null);
     }
 
     @Override
