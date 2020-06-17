@@ -7,6 +7,7 @@ import com.example.androidgame01.framework.main.GameScene;
 import com.example.androidgame01.framework.main.GameTimer;
 import com.example.androidgame01.framework.main.UiBridge;
 import com.example.androidgame01.framework.obj.AnimObject;
+import com.example.androidgame01.framework.obj.BitmapObject;
 import com.example.androidgame01.framework.obj.ScoreObject;
 import com.example.androidgame01.framework.obj.ui.Button;
 import com.example.androidgame01.game.obj.Ball;
@@ -16,8 +17,6 @@ import com.example.androidgame01.game.obj.Enemy2;
 import com.example.androidgame01.game.obj.Enemy3;
 import com.example.androidgame01.game.obj.Player;
 import com.example.androidgame01.game.obj.Slash;
-
-import java.util.Random;
 
 import kr.ac.kpu.game.scgyong.gameskeleton.R;
 
@@ -65,7 +64,7 @@ public class FirstScene extends GameScene {
         super.update();
 //        Log.d(TAG, "Score: " + timer.getRawIndex());
         if (timer.done()) {
-            scoreObject.add(100);
+            //scoreObject.add(100);
             timer.reset();
         }
 
@@ -80,6 +79,13 @@ public class FirstScene extends GameScene {
                 (enemy[6].attackFrame > ENEMY1_MINATTACKFRAME && enemy[6].attackFrame < ENEMY1_MAXATTACKFRAME) || (enemy[7].attackFrame > ENEMY1_MINATTACKFRAME && enemy[7].attackFrame < ENEMY1_MAXATTACKFRAME) ||
                 (enemy[8].attackFrame > ENEMY1_MINATTACKFRAME && enemy[8].attackFrame < ENEMY1_MAXATTACKFRAME)) && isPerfectGuard == true) {
             player.PerfectGuard();
+            for(int i = 0 ; i<9; ++i)
+            {
+                if(enemy[i].getX() - 400 < player.getX())
+                {
+                    enemy[i].calculateDamage(100);
+                }
+            }
             shield.capturing = false;
         }
         else if (shield.pressed == false && ((enemy[0].attackFrame == ENEMY1_ATTACKTRIGGER) || (enemy[1].attackFrame == ENEMY1_ATTACKTRIGGER) ||
@@ -105,7 +111,7 @@ public class FirstScene extends GameScene {
 
 
         //어택 버튼 눌럿을때
-        if(attack.pressed == true)
+        if(attack.pressed == true && IsAttackcount == false)
         {
             player.Attack();
             if(attackCheckCount == 0) {
@@ -144,10 +150,21 @@ public class FirstScene extends GameScene {
                     if (slash[i].getX() > enemy[j].getX()) {
                         slash[i].destroy();
                         enemy[j].calculateDamage(50);
+
                     }
                 }
             }
         }
+        for(int i = 0; i<9; i++)
+        {
+            if(enemy[i].isScoreAdd == true)
+            {
+                scoreObject.add(10);
+            }
+        }
+
+
+
     }
 
     @Override
@@ -156,17 +173,17 @@ public class FirstScene extends GameScene {
     }
 
     private void initObjects() {
-        Random rand = new Random();
+        //Random rand = new Random();
         int mdpi_100 = UiBridge.x(100);
         //공움직임
-        for (int i = 0; i < 1; i++) {
-            int dx = rand.nextInt(2 * mdpi_100) - 1 * mdpi_100;
-            if (dx >= 0) dx++;
-            int dy = rand.nextInt(2 * mdpi_100) - 1 * mdpi_100;
-            if (dy >= 0) dy++;
-            ball = new Ball(mdpi_100, mdpi_100, dx, dy);
-            gameWorld.add(Layer.enemy.ordinal(), ball);
-        }
+//        for (int i = 0; i < 1; i++) {
+//            int dx = rand.nextInt(2 * mdpi_100) - 1 * mdpi_100;
+//            if (dx >= 0) dx++;
+//            int dy = rand.nextInt(2 * mdpi_100) - 1 * mdpi_100;
+//            if (dy >= 0) dy++;
+//            ball = new Ball(mdpi_100, mdpi_100, dx, dy);
+//            gameWorld.add(Layer.enemy.ordinal(), ball);
+//        }
 
         player = new Player(300,800);
 
@@ -179,14 +196,14 @@ public class FirstScene extends GameScene {
        // gameWorld.add(Layer.enemy.ordinal(), enemy[3]);
         gameWorld.add(Layer.enemy.ordinal(), enemy[6]);
 
-
+        BitmapObject title = new BitmapObject(UiBridge.metrics.center.x, UiBridge.y(100), -150, -180, R.mipmap.bg);
+        gameWorld.add(Layer.bg.ordinal(), title);
         //gameWorld.add(Layer.bg.ordinal(), new CityBackground());
         int screenWidth = UiBridge.metrics.size.x;
         RectF rbox = new RectF(UiBridge.x(-52), UiBridge.y(20), UiBridge.x(-20), UiBridge.y(62));
         scoreObject = new ScoreObject(R.mipmap.number_64x84, rbox);
         gameWorld.add(Layer.ui.ordinal(), scoreObject);
-        //BitmapObject title = new BitmapObject(UiBridge.metrics.center.x, UiBridge.y(160), -150, -150, R.mipmap.이미지);
-        //gameWorld.add(Layer.ui.ordinal(), title);
+
         timer = new GameTimer(2, 1);
 
         int cx = UiBridge.metrics.center.x;

@@ -13,17 +13,19 @@ public class Enemy2 extends AnimObject {
     private FrameAnimationBitmap fabNormal;
     private FrameAnimationBitmap fabAttack;
     private FrameAnimationBitmap fabIdle;
+    private FrameAnimationBitmap fabDeath;
     public AnimState state;
     public int HP = 100;
 
     public Enemy2(float x, float y, float dx, float dy) {
-        super(x, y, 0, 0, R.mipmap.monster2_move, 8, 5);
+        super(x, y, 0, 0, R.mipmap.monster2_move, 8, 6);
         this.dx = dx;
         this.dy = dy;
         state = AnimState.normal;
-        fabNormal = new FrameAnimationBitmap(R.mipmap.monster2_move, 10, 5);
-        fabAttack = new FrameAnimationBitmap(R.mipmap.monster2_attack2, 4, 9);
-        fabIdle = new FrameAnimationBitmap(R.mipmap.monster2_idle, 10, 5);
+        fabNormal = new FrameAnimationBitmap(R.mipmap.monster2_move, 10, 6);
+        fabAttack = new FrameAnimationBitmap(R.mipmap.monster2_attack, 4, 7);
+        fabIdle = new FrameAnimationBitmap(R.mipmap.monster2_idle, 10, 8);
+        fabDeath = new FrameAnimationBitmap(R.mipmap.monster2_dead, 10, 8);
     }
     @Override
     public void calculateDamage(int damage)
@@ -35,7 +37,7 @@ public class Enemy2 extends AnimObject {
     public void enemyDeath()
     {
         respawnCount++;
-        if(respawnCount == 100)
+        if(respawnCount == 200)
         {
             initState();
             setAimState(AnimState.normal);
@@ -63,6 +65,11 @@ public class Enemy2 extends AnimObject {
         }
         else if(this.state == AnimState.idle) {
             fab = fabIdle;
+        }
+        else if(this.state == AnimState.death)
+        {
+            fab = fabDeath;
+            fab.reset();
         }
     }
 
@@ -107,17 +114,27 @@ public class Enemy2 extends AnimObject {
             attackFrame++;
         }
 
-        if(HP <= 0)
+        if(HP <= 0 && isDeath == false)
         {
+            if(isScoreAdd == false)
+            {
+                isScoreAdd = true;
+            }
             isDeath = true;
-            this.x = 11500;
-            this.y = -500;
+            setAimState(AnimState.death);
             this.dx = 0;
 
         }
-
+        if(respawnCount > 9)
+        {
+            isScoreAdd = false;
+        }
         if(isDeath)
         {
+            if(fab.done()){
+                this.x = 11500;
+                this.y = -500;
+            }
             enemyDeath();
         }
     }

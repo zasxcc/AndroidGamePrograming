@@ -20,9 +20,11 @@ public class AnimObject extends GameObject {
     protected boolean isAttackFrame = false;
     public boolean bMove = true;
     public boolean isDeath = false;
+    public boolean isScoreAdd = false;
     public int respawnCount = 0;
+
     public enum AnimState {
-        normal, attack, idle
+        normal, attack, idle, death
     }
     /////////////////////////////////////
     public AnimObject(float x, float y, int width, int height, int resId, int fps, int count) {
@@ -82,6 +84,7 @@ public class AnimObject extends GameObject {
         bMove = true;
         isDeath = false;
         respawnCount = 0;
+        isScoreAdd = false;
     }
     /////////////////////////////
 }
