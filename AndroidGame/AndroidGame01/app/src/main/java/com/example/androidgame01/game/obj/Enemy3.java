@@ -18,14 +18,14 @@ public class Enemy3 extends AnimObject {
     public int HP = 100;
 
     public Enemy3(float x, float y, float dx, float dy) {
-        super(x, y, 0, 0, R.mipmap.monster3_move, 8, 6);
+        super(x, y, 0, 0, R.mipmap.monster3_move, 16, 8);
         this.dx = dx;
         this.dy = dy;
         state = AnimState.normal;
-        fabNormal = new FrameAnimationBitmap(R.mipmap.monster3_move, 10, 6);
-        fabAttack = new FrameAnimationBitmap(R.mipmap.monster3_attack1, 4, 7);
-        fabIdle = new FrameAnimationBitmap(R.mipmap.monster3_idle, 10, 8);
-        fabDeath = new FrameAnimationBitmap(R.mipmap.monster3_dead, 10, 6);
+        fabNormal = new FrameAnimationBitmap(R.mipmap.monster3_move, 16, 8);
+        fabAttack = new FrameAnimationBitmap(R.mipmap.monster3_attack2, 14, 11);
+        fabIdle = new FrameAnimationBitmap(R.mipmap.monster3_idle, 14, 7);
+        fabDeath = new FrameAnimationBitmap(R.mipmap.monster3_dead, 12, 6);
     }
     @Override
     public void calculateDamage(int damage)

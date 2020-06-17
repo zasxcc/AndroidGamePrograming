@@ -53,6 +53,9 @@ public class AnimObject extends GameObject {
 
     public void draw(Canvas canvas) {
         //드로우 할 때 dstRect를 다르게 그리도록 해라
+        float width = UiBridge.x(fab.getWidth());
+        float height = UiBridge.y(fab.getHeight());
+
         float halfWidth = width / 2;
         float halfHeight = height / 2;
         dstRect.left = x - halfWidth;
