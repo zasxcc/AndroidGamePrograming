@@ -3,12 +3,14 @@ package com.example.androidgame01.framework.main;
 import android.graphics.Canvas;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.View;
 
 import java.util.ArrayList;
 
 public abstract class GameScene {
     private static final String TAG = GameScene.class.getSimpleName();
     private static ArrayList<GameScene> sceneStack = new ArrayList<>();
+    protected View view;
 
     protected static GameScene topGameScene;
 

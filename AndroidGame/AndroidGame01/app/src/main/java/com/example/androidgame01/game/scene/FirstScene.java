@@ -1,5 +1,7 @@
 package com.example.androidgame01.game.scene;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.RectF;
 import android.util.Log;
 
@@ -40,7 +42,10 @@ public class FirstScene extends GameScene {
             new Enemy3(1000, 800, -100, 0), new Enemy3(1000, 800, -100, 0), new Enemy3(1000, 800, -100, 0)
     };
     private Boss1 boss1;
+    public static final String PREFS_NAME = "Prefs";
+    public static final String PREF_KEY_HIGHSCORE = "highScore";
     private ScoreObject scoreObject;
+    private ScoreObject highScoreObject;
     private GameTimer timer;
     private Button attack;
     private Button shield;
@@ -61,6 +66,8 @@ public class FirstScene extends GameScene {
     int ENEMY3_MINATTACKFRAME = 60;
     int ENEMY3_MAXATTACKFRAME = 75;
     int ENEMY3_ATTACKTRIGGER = 80;
+
+
 
     @Override
     protected int getLayerCount() {
@@ -178,6 +185,19 @@ public class FirstScene extends GameScene {
 
     }
 
+    public void endGame() {
+        int score = scoreObject.getScore();
+
+        SharedPreferences prefs = view.getContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        int highScore = prefs.getInt(PREF_KEY_HIGHSCORE, 0);
+        if (score > highScore) {
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putInt(PREF_KEY_HIGHSCORE, score);
+            editor.commit();
+        }
+    }
+
+
     @Override
     public void enter() {
         initObjects();
@@ -227,6 +247,10 @@ public class FirstScene extends GameScene {
         gameWorld.add(Layer.ui.ordinal(), shield);
 
 
+
+//        SharedPreferences prefs = view.getContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+//        int highScore = prefs.getInt(PREF_KEY_HIGHSCORE, 0);
+//        highScoreObject.setScore(highScore);
 
     }
 }

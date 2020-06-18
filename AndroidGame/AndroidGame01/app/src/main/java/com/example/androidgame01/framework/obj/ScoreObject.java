@@ -78,4 +78,11 @@ public class ScoreObject extends GameObject {
         scoreAnimator.start();
         this.targetScore = newScore;
     }
+
+    public int getScore() {
+        return this.targetScore;
+    }
+    public void setScore(int score) {
+        add(score - this.targetScore);
+    }
 }
