@@ -114,6 +114,7 @@ public class Player extends AnimObject implements Touchable {
     public void playerDeath()
     {
         //여기다 죽으면 어떻게될지 코드
+        ((FirstScene)FirstScene.mContext).endGame();
 
 
         fab = fabDeath;

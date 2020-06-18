@@ -23,7 +23,7 @@ import kr.ac.kpu.game.scgyong.gameskeleton.R;
 
 public class FirstScene extends GameScene {
     private static final String TAG = FirstScene.class.getSimpleName();
-
+    public static FirstScene mContext;
     public enum Layer {
         bg, enemy, player, ui, COUNT,
     }
@@ -204,6 +204,7 @@ public class FirstScene extends GameScene {
     }
 
     private void initObjects() {
+        mContext = this;
         //Random rand = new Random();
         int mdpi_100 = UiBridge.x(100);
         //공움직임
