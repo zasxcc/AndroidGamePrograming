@@ -10,14 +10,13 @@ import com.example.androidgame01.framework.obj.AnimObject;
 import com.example.androidgame01.framework.obj.BitmapObject;
 import com.example.androidgame01.framework.obj.ScoreObject;
 import com.example.androidgame01.framework.obj.ui.Button;
-import com.example.androidgame01.game.obj.Ball;
 import com.example.androidgame01.game.obj.Boss1;
 import com.example.androidgame01.game.obj.Enemy1;
 import com.example.androidgame01.game.obj.Enemy2;
 import com.example.androidgame01.game.obj.Enemy3;
 import com.example.androidgame01.game.obj.Player;
 import com.example.androidgame01.game.obj.Slash;
-
+import com.example.androidgame01.game.obj.HPbar;
 import kr.ac.kpu.game.scgyong.gameskeleton.R;
 
 public class FirstScene extends GameScene {
@@ -26,7 +25,7 @@ public class FirstScene extends GameScene {
     public enum Layer {
         bg, enemy, player, ui, COUNT,
     }
-    private Ball ball;
+    private HPbar hPbar;
     private Slash[] slash = {
             new Slash(0,0,0,0), new Slash(0,0,0,0), new Slash(0,0,0,0),
             new Slash(0,0,0,0), new Slash(0,0,0,0), new Slash(0,0,0,0),
@@ -45,6 +44,7 @@ public class FirstScene extends GameScene {
     private GameTimer timer;
     private Button attack;
     private Button shield;
+    private Button HPbar;
     private int attackCheckCount = 0;
     private int slashCount = 0;
     private boolean IsAttackcount = false;
@@ -104,6 +104,7 @@ public class FirstScene extends GameScene {
                 (enemy[8].attackFrame == ENEMY3_ATTACKTRIGGER && enemy[8].isDeath == false) )
         ) {
             player.calculateDamage(10);
+            hPbar.setHPstate(player.HP);
             Log.d("asd","Player HP : " + player.HP);
         }
         //그냥 실드 눌럿을 경우
@@ -196,16 +197,18 @@ public class FirstScene extends GameScene {
 //        }
 
         player = new Player(300,800);
-
+        hPbar = new HPbar(300, 100,0,0);
         //boss1 = new Boss1(1200, 800, -80, 0);
-
+        gameWorld.add(Layer.player.ordinal(), hPbar);
         gameWorld.add(Layer.player.ordinal(), player);
         gameWorld.add(Layer.enemy.ordinal(), enemy[8]);
         //gameWorld.add(Layer.enemy.ordinal(), enemy[3]);
         //gameWorld.add(Layer.enemy.ordinal(), enemy[6]);
 
+
         BitmapObject title = new BitmapObject(UiBridge.metrics.center.x, UiBridge.y(100), -150, -180, R.mipmap.bg);
         gameWorld.add(Layer.bg.ordinal(), title);
+
         //gameWorld.add(Layer.bg.ordinal(), new CityBackground());
         int screenWidth = UiBridge.metrics.size.x;
         RectF rbox = new RectF(UiBridge.x(-52), UiBridge.y(20), UiBridge.x(-20), UiBridge.y(62));
@@ -222,6 +225,8 @@ public class FirstScene extends GameScene {
 
         shield = new Button(cx + 750, cy + 300, R.mipmap.shield_button, R.mipmap.blue_round_btn, R.mipmap.red_round_btn);
         gameWorld.add(Layer.ui.ordinal(), shield);
+
+
 
     }
 }

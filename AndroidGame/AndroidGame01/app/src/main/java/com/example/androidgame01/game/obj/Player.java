@@ -5,7 +5,6 @@ import android.graphics.Canvas;
 import android.view.MotionEvent;
 
 import com.example.androidgame01.framework.iface.Touchable;
-import com.example.androidgame01.framework.main.GameTimer;
 import com.example.androidgame01.framework.main.UiBridge;
 import com.example.androidgame01.framework.obj.AnimObject;
 import com.example.androidgame01.framework.res.bitmap.FrameAnimationBitmap;
@@ -17,19 +16,24 @@ public class Player extends AnimObject implements Touchable {
 
     private FrameAnimationBitmap fabNormal;
     private FrameAnimationBitmap fabAttack;
+    private FrameAnimationBitmap fabDeath;
     private static final float GRAVITY_SPEED = 1000;
     private static final float JUMP_POWER = -500;
     private boolean jumping;
     private float speed;
     private float base;
-    public int HP = 100;
+    public int HP = 70;
+    public boolean isDeath = false;
 
     public Player(float x, float y) {
-        super(x, y, 0, 0, R.mipmap.ryu, 8, 0);
+        super(x, y, 0, 0, R.mipmap.idle, 8, 6);
         base = y;
 
-        fabNormal = new FrameAnimationBitmap(R.mipmap.ryu, 10, 0);
-        fabAttack = new FrameAnimationBitmap(R.mipmap.ryu_1, 10, 5);
+        fabNormal = new FrameAnimationBitmap(R.mipmap.idle, 8, 6);
+
+        fabAttack = new FrameAnimationBitmap(R.mipmap.attack, 30, 6);
+        fabDeath = new FrameAnimationBitmap(R.mipmap.die, 8, 9);
+
     }
 
     public enum AnimState{
@@ -58,11 +62,11 @@ public class Player extends AnimObject implements Touchable {
     }
 
     public void Attack(){
-        fab = new FrameAnimationBitmap(R.mipmap.attack, 30, 6);
+        fab = fabAttack;
     }
     public void idle()
     {
-        fab = new FrameAnimationBitmap(R.mipmap.idle, 8, 6);
+        fab = fabNormal;
     }
 
 
@@ -72,18 +76,22 @@ public class Player extends AnimObject implements Touchable {
     }
 
     public void update() {
-        if(jumping)
+//        if(jumping)
+//        {
+//            setAimState(AnimState.attack);
+//            float timeDiffeSeconds = GameTimer.getTimeDiffSeconds();
+//            y += speed * timeDiffeSeconds;
+//            speed += GRAVITY_SPEED * timeDiffeSeconds;
+//            if(y >= base)
+//            {
+//                jumping = false;
+//                setAimState(AnimState.normal);
+//                y = base;
+//            }
+//        }
+        if(fab.done() && fab == fabDeath)
         {
-            setAimState(AnimState.attack);
-            float timeDiffeSeconds = GameTimer.getTimeDiffSeconds();
-            y += speed * timeDiffeSeconds;
-            speed += GRAVITY_SPEED * timeDiffeSeconds;
-            if(y >= base)
-            {
-                jumping = false;
-                setAimState(AnimState.normal);
-                y = base;
-            }
+            this.x = -10000;
         }
     }
 
@@ -91,11 +99,18 @@ public class Player extends AnimObject implements Touchable {
     {
         HP = HP-damage;
         if(HP <= 0)
+            isDeath = true;
+
+        if(isDeath){
             playerDeath();
+            isDeath = false;
+        }
     }
     public void playerDeath()
     {
         //여기다 죽으면 어떻게될지 코드
+        fab = fabDeath;
+        fab.reset();
     }
 
     public void draw(Canvas canvas) {
