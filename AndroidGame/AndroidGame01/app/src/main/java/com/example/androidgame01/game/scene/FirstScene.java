@@ -37,9 +37,9 @@ public class FirstScene extends GameScene {
     };
     private Player player;
     private AnimObject[] enemy = {
-            new Enemy1(1000, 800, -100, 0), new Enemy1(1400, 800, -100, 0), new Enemy1(1000, 800, -100, 0),
-            new Enemy2(1000, 800, -100, 0), new Enemy2(1000, 800, -100, 0), new Enemy2(1000, 800, -100, 0),
-            new Enemy3(1000, 800, -100, 0), new Enemy3(1000, 800, -100, 0), new Enemy3(1000, 800, -100, 0)
+            new Enemy1(1300, 800, -150, 0), new Enemy1(1300, 800, -150, 0), new Enemy1(1300, 800, -150, 0),
+            new Enemy2(1300, 800, -100, 0), new Enemy2(1300, 800, -100, 0), new Enemy2(1300, 800, -100, 0),
+            new Enemy3(1300, 800, -50, 0), new Enemy3(1300, 800, -50, 0), new Enemy3(1300, 800, -50, 0)
     };
     private Boss1 boss1;
     public static final String PREFS_NAME = "Prefs";
@@ -54,6 +54,15 @@ public class FirstScene extends GameScene {
     private int slashCount = 0;
     private boolean IsAttackcount = false;
     private boolean isPerfectGuard = true;
+
+    boolean gameLevel_A = false;
+    boolean gameLevel_B = false;
+    boolean gameLevel_C = false;
+    boolean gameLevel_D = false;
+    boolean gameLevel_E = false;
+    boolean gameLevel_F = false;
+    boolean gameLevel_G = false;
+
 
     int ENEMY1_MINATTACKFRAME = 20;
     int ENEMY1_MAXATTACKFRAME = 40;
@@ -129,8 +138,7 @@ public class FirstScene extends GameScene {
 
 
         //어택 버튼 눌럿을때
-        if(attack.pressed == true && IsAttackcount == false)
-        {
+        if(attack.pressed == true && IsAttackcount == false) {
             player.Attack();
             if(attackCheckCount == 0) {
                 slashCount++;
@@ -144,7 +152,6 @@ public class FirstScene extends GameScene {
         }
         //어택 버튼 누르면 카운트 시작
         if(IsAttackcount) {
-
             attackCheckCount++;
             if (attackCheckCount == 10) {
                 attackCheckCount = 0;
@@ -160,19 +167,49 @@ public class FirstScene extends GameScene {
                 enemy[i].setMove(false);
             }
         }
-
+        //Slash 적 충돌
         for(int i = 0; i<15; ++i) {
-            //Slash 적 충돌
             if (slash != null) {
                 for (int j = 0; j < 9; ++j) {
                     if (slash[i].getX() > enemy[j].getX()) {
                         slash[i].destroy();
                         enemy[j].calculateDamage(50);
-
                     }
                 }
             }
         }
+
+        //게임 난이도 조절
+        if(scoreObject.getScore() > 100 && gameLevel_A == false){
+            gameLevel_A = true;
+            gameWorld.add(Layer.enemy.ordinal(), enemy[1]);
+        }
+        else if(scoreObject.getScore() > 300 && gameLevel_B == false){
+            gameLevel_B = true;
+            gameWorld.add(Layer.enemy.ordinal(), enemy[3]);
+        }
+        else if(scoreObject.getScore() > 600 && gameLevel_C == false){
+            gameLevel_C = true;
+            gameWorld.add(Layer.enemy.ordinal(), enemy[6]);
+        }
+        else if(scoreObject.getScore() > 1000 && gameLevel_D == false){
+            gameLevel_D = true;
+            gameWorld.add(Layer.enemy.ordinal(), enemy[2]);
+        }
+        else if(scoreObject.getScore() > 1500 && gameLevel_E == false){
+            gameLevel_E = true;
+            gameWorld.add(Layer.enemy.ordinal(), enemy[4]);
+        }
+        else if(scoreObject.getScore() > 2000 && gameLevel_F == false){
+            gameLevel_F = true;
+            gameWorld.add(Layer.enemy.ordinal(), enemy[5]);
+        }
+        else if(scoreObject.getScore() > 2500 && gameLevel_G == false){
+            gameLevel_G = true;
+            gameWorld.add(Layer.enemy.ordinal(), enemy[7]);
+        }
+
+
         for(int i = 0; i<9; i++)
         {
             if(enemy[i].isScoreAdd == true)
@@ -180,9 +217,6 @@ public class FirstScene extends GameScene {
                 scoreObject.add(10);
             }
         }
-
-
-
     }
 
     public void endGame() {
@@ -205,24 +239,13 @@ public class FirstScene extends GameScene {
 
     private void initObjects() {
         mContext = this;
-        //Random rand = new Random();
-        int mdpi_100 = UiBridge.x(100);
-        //공움직임
-//        for (int i = 0; i < 1; i++) {
-//            int dx = rand.nextInt(2 * mdpi_100) - 1 * mdpi_100;
-//            if (dx >= 0) dx++;
-//            int dy = rand.nextInt(2 * mdpi_100) - 1 * mdpi_100;
-//            if (dy >= 0) dy++;
-//            ball = new Ball(mdpi_100, mdpi_100, dx, dy);
-//            gameWorld.add(Layer.enemy.ordinal(), ball);
-//        }
 
         player = new Player(300,800);
         hPbar = new HPbar(300, 100,0,0);
         //boss1 = new Boss1(1200, 800, -80, 0);
         gameWorld.add(Layer.player.ordinal(), hPbar);
         gameWorld.add(Layer.player.ordinal(), player);
-        gameWorld.add(Layer.enemy.ordinal(), enemy[8]);
+        gameWorld.add(Layer.enemy.ordinal(), enemy[0]);
         //gameWorld.add(Layer.enemy.ordinal(), enemy[3]);
         //gameWorld.add(Layer.enemy.ordinal(), enemy[6]);
 

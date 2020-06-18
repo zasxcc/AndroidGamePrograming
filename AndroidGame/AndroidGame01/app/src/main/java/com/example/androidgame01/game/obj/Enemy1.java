@@ -43,9 +43,9 @@ public class Enemy1 extends AnimObject {
             setAimState(AnimState.normal);
             isDeath = false;
             respawnCount = 0;
-            this.x = 1000;
+            this.x = 1300;
             this.y = 800;
-            this.dx = -100;
+            this.dx = -150;
             this.HP = 100;
         }
     }

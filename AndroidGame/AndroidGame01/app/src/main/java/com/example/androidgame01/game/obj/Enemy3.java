@@ -15,7 +15,7 @@ public class Enemy3 extends AnimObject {
     private FrameAnimationBitmap fabIdle;
     private FrameAnimationBitmap fabDeath;
     public AnimState state;
-    public int HP = 100;
+    public int HP = 300;
 
     public Enemy3(float x, float y, float dx, float dy) {
         super(x, y, 0, 0, R.mipmap.monster3_move, 16, 8);
@@ -43,10 +43,10 @@ public class Enemy3 extends AnimObject {
             setAimState(AnimState.normal);
             isDeath = false;
             respawnCount = 0;
-            this.x = 1000;
+            this.x = 1300;
             this.y = 800;
-            this.dx = -100;
-            this.HP = 100;
+            this.dx = -400;
+            this.HP = 200;
         }
     }
 
