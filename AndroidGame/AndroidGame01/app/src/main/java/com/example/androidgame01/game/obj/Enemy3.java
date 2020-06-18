@@ -23,7 +23,7 @@ public class Enemy3 extends AnimObject {
         this.dy = dy;
         state = AnimState.normal;
         fabNormal = new FrameAnimationBitmap(R.mipmap.monster3_move, 16, 8);
-        fabAttack = new FrameAnimationBitmap(R.mipmap.monster3_attack2, 14, 11);
+        fabAttack = new FrameAnimationBitmap(R.mipmap.monster3_attack2, 4, 11);
         fabIdle = new FrameAnimationBitmap(R.mipmap.monster3_idle, 14, 7);
         fabDeath = new FrameAnimationBitmap(R.mipmap.monster3_dead, 12, 6);
     }

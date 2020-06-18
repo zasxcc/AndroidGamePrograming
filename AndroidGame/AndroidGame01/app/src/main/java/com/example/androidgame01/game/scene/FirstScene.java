@@ -51,8 +51,16 @@ public class FirstScene extends GameScene {
     private boolean isPerfectGuard = true;
 
     int ENEMY1_MINATTACKFRAME = 20;
-    int ENEMY1_MAXATTACKFRAME = 50;
-    int ENEMY1_ATTACKTRIGGER = 55;
+    int ENEMY1_MAXATTACKFRAME = 40;
+    int ENEMY1_ATTACKTRIGGER = 45;
+
+    int ENEMY2_MINATTACKFRAME = 50;
+    int ENEMY2_MAXATTACKFRAME = 65;
+    int ENEMY2_ATTACKTRIGGER = 70;
+
+    int ENEMY3_MINATTACKFRAME = 60;
+    int ENEMY3_MAXATTACKFRAME = 75;
+    int ENEMY3_ATTACKTRIGGER = 80;
 
     @Override
     protected int getLayerCount() {
@@ -74,10 +82,10 @@ public class FirstScene extends GameScene {
         //적들이 공격하는 타이밍에 맞춰 실드를 누른다면
         if (shield.pressed == true && (
                 (enemy[0].attackFrame > ENEMY1_MINATTACKFRAME && enemy[0].attackFrame < ENEMY1_MAXATTACKFRAME) || (enemy[1].attackFrame > ENEMY1_MINATTACKFRAME && enemy[1].attackFrame < ENEMY1_MAXATTACKFRAME) ||
-                (enemy[2].attackFrame > ENEMY1_MINATTACKFRAME && enemy[2].attackFrame < ENEMY1_MAXATTACKFRAME) || (enemy[3].attackFrame > ENEMY1_MINATTACKFRAME && enemy[3].attackFrame < ENEMY1_MAXATTACKFRAME) ||
-                (enemy[4].attackFrame > ENEMY1_MINATTACKFRAME && enemy[4].attackFrame < ENEMY1_MAXATTACKFRAME) || (enemy[5].attackFrame > ENEMY1_MINATTACKFRAME && enemy[5].attackFrame < ENEMY1_MAXATTACKFRAME) ||
-                (enemy[6].attackFrame > ENEMY1_MINATTACKFRAME && enemy[6].attackFrame < ENEMY1_MAXATTACKFRAME) || (enemy[7].attackFrame > ENEMY1_MINATTACKFRAME && enemy[7].attackFrame < ENEMY1_MAXATTACKFRAME) ||
-                (enemy[8].attackFrame > ENEMY1_MINATTACKFRAME && enemy[8].attackFrame < ENEMY1_MAXATTACKFRAME)) && isPerfectGuard == true) {
+                (enemy[2].attackFrame > ENEMY1_MINATTACKFRAME && enemy[2].attackFrame < ENEMY1_MAXATTACKFRAME) || (enemy[3].attackFrame > ENEMY2_MINATTACKFRAME && enemy[3].attackFrame < ENEMY2_MAXATTACKFRAME) ||
+                (enemy[4].attackFrame > ENEMY2_MINATTACKFRAME && enemy[4].attackFrame < ENEMY2_MAXATTACKFRAME) || (enemy[5].attackFrame > ENEMY2_MINATTACKFRAME && enemy[5].attackFrame < ENEMY2_MAXATTACKFRAME) ||
+                (enemy[6].attackFrame > ENEMY3_MINATTACKFRAME && enemy[6].attackFrame < ENEMY3_MAXATTACKFRAME) || (enemy[7].attackFrame > ENEMY3_MINATTACKFRAME && enemy[7].attackFrame < ENEMY3_MAXATTACKFRAME) ||
+                (enemy[8].attackFrame > ENEMY3_MINATTACKFRAME && enemy[8].attackFrame < ENEMY3_MAXATTACKFRAME)) && isPerfectGuard == true) {
             player.PerfectGuard();
             for(int i = 0 ; i<9; ++i)
             {
@@ -88,11 +96,13 @@ public class FirstScene extends GameScene {
             }
             shield.capturing = false;
         }
-        else if (shield.pressed == false && ((enemy[0].attackFrame == ENEMY1_ATTACKTRIGGER) || (enemy[1].attackFrame == ENEMY1_ATTACKTRIGGER) ||
-                (enemy[2].attackFrame == ENEMY1_ATTACKTRIGGER) || (enemy[3].attackFrame == ENEMY1_ATTACKTRIGGER ) ||
-                (enemy[4].attackFrame == ENEMY1_ATTACKTRIGGER) || (enemy[5].attackFrame == ENEMY1_ATTACKTRIGGER ) ||
-                (enemy[6].attackFrame == ENEMY1_ATTACKTRIGGER) || (enemy[7].attackFrame == ENEMY1_ATTACKTRIGGER ) ||
-                (enemy[8].attackFrame == ENEMY1_ATTACKTRIGGER) )) {
+        else if (shield.pressed == false && (
+                (enemy[0].attackFrame == ENEMY1_ATTACKTRIGGER && enemy[0].isDeath == false) || (enemy[1].attackFrame == ENEMY1_ATTACKTRIGGER && enemy[1].isDeath == false ) ||
+                (enemy[2].attackFrame == ENEMY1_ATTACKTRIGGER && enemy[2].isDeath == false) || (enemy[3].attackFrame == ENEMY2_ATTACKTRIGGER && enemy[3].isDeath == false) ||
+                (enemy[4].attackFrame == ENEMY2_ATTACKTRIGGER && enemy[4].isDeath == false) || (enemy[5].attackFrame == ENEMY2_ATTACKTRIGGER && enemy[5].isDeath == false) ||
+                (enemy[6].attackFrame == ENEMY3_ATTACKTRIGGER && enemy[6].isDeath == false) || (enemy[7].attackFrame == ENEMY3_ATTACKTRIGGER && enemy[7].isDeath == false) ||
+                (enemy[8].attackFrame == ENEMY3_ATTACKTRIGGER && enemy[8].isDeath == false) )
+        ) {
             player.calculateDamage(10);
             Log.d("asd","Player HP : " + player.HP);
         }
@@ -190,11 +200,9 @@ public class FirstScene extends GameScene {
         //boss1 = new Boss1(1200, 800, -80, 0);
 
         gameWorld.add(Layer.player.ordinal(), player);
-        gameWorld.add(Layer.enemy.ordinal(), enemy[0]);
-        //gameWorld.add(Layer.enemy.ordinal(), enemy[1]);
-        gameWorld.add(Layer.enemy.ordinal(), enemy[3]);
-       // gameWorld.add(Layer.enemy.ordinal(), enemy[3]);
-        gameWorld.add(Layer.enemy.ordinal(), enemy[6]);
+        gameWorld.add(Layer.enemy.ordinal(), enemy[8]);
+        //gameWorld.add(Layer.enemy.ordinal(), enemy[3]);
+        //gameWorld.add(Layer.enemy.ordinal(), enemy[6]);
 
         BitmapObject title = new BitmapObject(UiBridge.metrics.center.x, UiBridge.y(100), -150, -180, R.mipmap.bg);
         gameWorld.add(Layer.bg.ordinal(), title);
