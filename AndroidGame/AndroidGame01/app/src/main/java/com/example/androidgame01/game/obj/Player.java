@@ -1,15 +1,12 @@
 package com.example.androidgame01.game.obj;
 
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.view.MotionEvent;
 
 import com.example.androidgame01.framework.iface.Touchable;
 import com.example.androidgame01.framework.main.UiBridge;
 import com.example.androidgame01.framework.obj.AnimObject;
-import com.example.androidgame01.framework.obj.ScoreObject;
 import com.example.androidgame01.framework.res.bitmap.FrameAnimationBitmap;
 import com.example.androidgame01.game.scene.FirstScene;
 
@@ -35,10 +32,8 @@ public class Player extends AnimObject implements Touchable {
         base = y;
 
         fabNormal = new FrameAnimationBitmap(R.mipmap.idle, 8, 6);
-
         fabAttack = new FrameAnimationBitmap(R.mipmap.attack, 30, 6);
         fabDeath = new FrameAnimationBitmap(R.mipmap.die, 8, 9);
-
     }
 
     public enum AnimState{

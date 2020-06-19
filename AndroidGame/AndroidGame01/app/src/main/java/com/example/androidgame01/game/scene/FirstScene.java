@@ -18,7 +18,7 @@ import com.example.androidgame01.game.obj.Enemy2;
 import com.example.androidgame01.game.obj.Enemy3;
 import com.example.androidgame01.game.obj.Player;
 import com.example.androidgame01.game.obj.Slash;
-import com.example.androidgame01.game.obj.HPbar;
+import com.example.androidgame01.game.UI.HPbar;
 import kr.ac.kpu.game.scgyong.gameskeleton.R;
 
 public class FirstScene extends GameScene {
@@ -39,7 +39,7 @@ public class FirstScene extends GameScene {
     private AnimObject[] enemy = {
             new Enemy1(1300, 800, -150, 0), new Enemy1(1300, 800, -150, 0), new Enemy1(1300, 800, -150, 0),
             new Enemy2(1300, 800, -100, 0), new Enemy2(1300, 800, -100, 0), new Enemy2(1300, 800, -100, 0),
-            new Enemy3(1300, 800, -50, 0), new Enemy3(1300, 800, -50, 0), new Enemy3(1300, 800, -50, 0)
+            new Enemy3(1300, 800, -400, 0), new Enemy3(1300, 800, -400, 0), new Enemy3(1300, 800, -400, 0)
     };
     private Boss1 boss1;
     public static final String PREFS_NAME = "Prefs";

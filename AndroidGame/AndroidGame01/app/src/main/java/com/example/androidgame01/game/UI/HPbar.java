@@ -1,4 +1,4 @@
-package com.example.androidgame01.game.obj;
+package com.example.androidgame01.game.UI;
 
 
 import android.graphics.Canvas;
