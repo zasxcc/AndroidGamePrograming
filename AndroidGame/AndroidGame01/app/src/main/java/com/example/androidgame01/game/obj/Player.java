@@ -18,18 +18,14 @@ public class Player extends AnimObject implements Touchable {
     private FrameAnimationBitmap fabNormal;
     private FrameAnimationBitmap fabAttack;
     private FrameAnimationBitmap fabDeath;
-    private static final float GRAVITY_SPEED = 1000;
     private static final float JUMP_POWER = -500;
     private boolean jumping;
-    private float speed;
-    private float base;
     public int HP = 70;
     public boolean isDeath = false;
 
 
     public Player(float x, float y) {
         super(x, y, 0, 0, R.mipmap.idle, 8, 6);
-        base = y;
 
         fabNormal = new FrameAnimationBitmap(R.mipmap.idle, 8, 6);
         fabAttack = new FrameAnimationBitmap(R.mipmap.attack, 30, 6);
@@ -131,23 +127,23 @@ public class Player extends AnimObject implements Touchable {
 
     @Override
     public boolean onTouchEvent(MotionEvent e) {
-        if(e.getAction() != MotionEvent.ACTION_DOWN)
-        {
-            return false;
-        }
-        float tx = e.getX();
-        if(tx < UiBridge.metrics.center.x)
-        {
-            //jump
-            if(!jumping) {
-                jumping = true;
-                speed = JUMP_POWER;
-            }
-        }
-        else
-        {
-            //slide
-        }
-        return false;
+//        if(e.getAction() != MotionEvent.ACTION_DOWN)
+//        {
+//            return false;
+//        }
+//        float tx = e.getX();
+//        if(tx < UiBridge.metrics.center.x)
+//        {
+//            //jump
+//            if(!jumping) {
+//                jumping = true;
+//                speed = JUMP_POWER;
+//            }
+//        }
+//        else
+//        {
+//            //slide
+//        }
+         return false;
     }
 }

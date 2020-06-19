@@ -19,6 +19,8 @@ import com.example.androidgame01.game.obj.Enemy3;
 import com.example.androidgame01.game.obj.Player;
 import com.example.androidgame01.game.obj.Slash;
 import com.example.androidgame01.game.UI.HPbar;
+import com.example.androidgame01.game.obj.Slash_Effect;
+
 import kr.ac.kpu.game.scgyong.gameskeleton.R;
 
 public class FirstScene extends GameScene {
@@ -40,6 +42,14 @@ public class FirstScene extends GameScene {
             new Enemy1(1300, 800, -150, 0), new Enemy1(1300, 800, -150, 0), new Enemy1(1300, 800, -150, 0),
             new Enemy2(1300, 800, -100, 0), new Enemy2(1300, 800, -100, 0), new Enemy2(1300, 800, -100, 0),
             new Enemy3(1300, 800, -400, 0), new Enemy3(1300, 800, -400, 0), new Enemy3(1300, 800, -400, 0)
+    };
+
+    private Slash_Effect[] slash_effect = {
+            new Slash_Effect(100, 300, 0, 0), new Slash_Effect(9999, 9999, 0, 0), new Slash_Effect(9999, 9999, 0, 0),
+            new Slash_Effect(9999, 9999, 0, 0), new Slash_Effect(9999, 9999, 0, 0), new Slash_Effect(9999, 9999, 0, 0),
+            new Slash_Effect(9999, 9999, 0, 0), new Slash_Effect(9999, 9999, 0, 0), new Slash_Effect(9999, 9999, 0, 0),
+            new Slash_Effect(9999, 9999, 0, 0), new Slash_Effect(9999, 9999, 0, 0), new Slash_Effect(9999, 9999, 0, 0),
+            new Slash_Effect(9999, 9999, 0, 0), new Slash_Effect(9999, 9999, 0, 0), new Slash_Effect(9999, 9999, 0, 0)
     };
     private Boss1 boss1;
     public static final String PREFS_NAME = "Prefs";
@@ -76,7 +86,7 @@ public class FirstScene extends GameScene {
     int ENEMY3_MAXATTACKFRAME = 75;
     int ENEMY3_ATTACKTRIGGER = 80;
 
-
+    int slashEffect_Count = 0;
 
     @Override
     protected int getLayerCount() {
@@ -172,8 +182,14 @@ public class FirstScene extends GameScene {
             if (slash != null) {
                 for (int j = 0; j < 9; ++j) {
                     if (slash[i].getX() > enemy[j].getX()) {
+                        slash_effect[slashEffect_Count].setPosition(slash[i].getX(), slash[i].getY());
                         slash[i].destroy();
                         enemy[j].calculateDamage(50);
+                        slashEffect_Count++;
+                        if(slashEffect_Count == 14)
+                        {
+                            slashEffect_Count = 0;
+                        }
                     }
                 }
             }
@@ -246,10 +262,10 @@ public class FirstScene extends GameScene {
         gameWorld.add(Layer.player.ordinal(), hPbar);
         gameWorld.add(Layer.player.ordinal(), player);
         gameWorld.add(Layer.enemy.ordinal(), enemy[0]);
-        //gameWorld.add(Layer.enemy.ordinal(), enemy[3]);
-        //gameWorld.add(Layer.enemy.ordinal(), enemy[6]);
 
-
+        for(int i = 0; i<15;++i) {
+            gameWorld.add(Layer.player.ordinal(), slash_effect[i]);
+        }
         BitmapObject title = new BitmapObject(UiBridge.metrics.center.x, UiBridge.y(100), -150, -180, R.mipmap.bg);
         gameWorld.add(Layer.bg.ordinal(), title);
 
