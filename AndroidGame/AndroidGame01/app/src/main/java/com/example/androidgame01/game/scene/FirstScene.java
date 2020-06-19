@@ -17,6 +17,7 @@ import com.example.androidgame01.game.obj.Enemy1;
 import com.example.androidgame01.game.obj.Enemy2;
 import com.example.androidgame01.game.obj.Enemy3;
 import com.example.androidgame01.game.obj.Player;
+import com.example.androidgame01.game.obj.RevengeSlash;
 import com.example.androidgame01.game.obj.Slash;
 import com.example.androidgame01.game.obj.Slash_Effect;
 
@@ -36,6 +37,12 @@ public class FirstScene extends GameScene {
             new Slash(0,0,0,0), new Slash(0,0,0,0), new Slash(0,0,0,0),
             new Slash(0,0,0,0), new Slash(0,0,0,0), new Slash(0,0,0,0)
     };
+    private RevengeSlash[] revengeSlash = {
+            new RevengeSlash(0,0,0,0), new RevengeSlash(0,0,0,0),
+            new RevengeSlash(0,0,0,0), new RevengeSlash(0,0,0,0),
+            new RevengeSlash(0,0,0,0), new RevengeSlash(0,0,0,0)
+    };
+
     private Player player;
     private AnimObject[] enemy = {
             new Enemy1(11300, 800, -150, 0), new Enemy1(11300, 800, -150, 0), new Enemy1(11300, 800, -150, 0),
@@ -61,6 +68,7 @@ public class FirstScene extends GameScene {
     private Button HPbar;
     private int attackCheckCount = 0;
     private int slashCount = 0;
+    private int revengeSlashCount = 0;
     private boolean IsAttackcount = false;
     private boolean isPerfectGuard = true;
 
@@ -111,14 +119,21 @@ public class FirstScene extends GameScene {
                 (enemy[4].attackFrame > ENEMY2_MINATTACKFRAME && enemy[4].attackFrame < ENEMY2_MAXATTACKFRAME) || (enemy[5].attackFrame > ENEMY2_MINATTACKFRAME && enemy[5].attackFrame < ENEMY2_MAXATTACKFRAME) ||
                 (enemy[6].attackFrame > ENEMY3_MINATTACKFRAME && enemy[6].attackFrame < ENEMY3_MAXATTACKFRAME) || (enemy[7].attackFrame > ENEMY3_MINATTACKFRAME && enemy[7].attackFrame < ENEMY3_MAXATTACKFRAME) ||
                 (enemy[8].attackFrame > ENEMY3_MINATTACKFRAME && enemy[8].attackFrame < ENEMY3_MAXATTACKFRAME)) && isPerfectGuard == true) {
+
+            revengeSlashCount++;
+            if(revengeSlashCount == 5)
+                revengeSlashCount = 0;
+            revengeSlash[revengeSlashCount].positionUpdate(400, 800, 800);
+            gameWorld.add(Layer.player.ordinal(), revengeSlash[revengeSlashCount]);
+
             player.PerfectGuard();
-            for(int i = 0 ; i<9; ++i)
-            {
-                if(enemy[i].getX() - 400 < player.getX())
-                {
-                    enemy[i].calculateDamage(100);
-                }
-            }
+//            for(int i = 0 ; i<9; ++i)
+//            {
+//                if(enemy[i].getX() - 400 < player.getX())
+//                {
+//                    enemy[i].calculateDamage(100);
+//                }
+//            }
             shield.capturing = false;
         }
         else if (shield.pressed == false && (
@@ -179,7 +194,7 @@ public class FirstScene extends GameScene {
         for(int i = 0; i<15; ++i) {
             if (slash != null) {
                 for (int j = 0; j < 9; ++j) {
-                    if (slash[i].getX() > enemy[j].getX()) {
+                    if (slash[i].getX() > enemy[j].getX() && slash[i].getX() < enemy[j].getX() + 100) {
                         slash_effect[slashEffect_Count].setPosition(slash[i].getX(), slash[i].getY());
                         slash[i].destroy();
                         enemy[j].calculateDamage(50);
@@ -189,6 +204,15 @@ public class FirstScene extends GameScene {
                             slashEffect_Count = 0;
                         }
                     }
+                }
+            }
+        }
+
+        //RevengeSlash 적 충돌
+        for(int i = 0; i<6; ++i) {
+            if (revengeSlash != null) {
+                for (int j = 0; j < 9; ++j) {
+                    //충돌시 코드
                 }
             }
         }
