@@ -222,13 +222,13 @@ public class FirstScene extends GameScene {
     public void endGame() {
         int score = scoreObject.getScore();
 
-        SharedPreferences prefs = view.getContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        int highScore = prefs.getInt(PREF_KEY_HIGHSCORE, 0);
-        if (score > highScore) {
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putInt(PREF_KEY_HIGHSCORE, score);
-            editor.commit();
-        }
+//        SharedPreferences prefs = view.getContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+//        int highScore = prefs.getInt(PREF_KEY_HIGHSCORE, 0);
+//        if (score > highScore) {
+//            SharedPreferences.Editor editor = prefs.edit();
+//            editor.putInt(PREF_KEY_HIGHSCORE, score);
+//            editor.commit();
+//        }
     }
 
 
