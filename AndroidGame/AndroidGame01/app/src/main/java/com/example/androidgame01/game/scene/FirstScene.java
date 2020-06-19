@@ -154,7 +154,7 @@ public class FirstScene extends GameScene {
                 slashCount++;
                 if(slashCount == 14)
                     slashCount = 0;
-                slash[slashCount].positionUpdate(400, 800, 500);
+                slash[slashCount].positionUpdate(400, 800, 800);
                 gameWorld.add(Layer.player.ordinal(), slash[slashCount]);
             }
             IsAttackcount = true;

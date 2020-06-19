@@ -14,8 +14,8 @@ public class Slash_Effect extends AnimObject {
     private boolean fabStart = false;
     private FrameAnimationBitmap fabSlash;
     public Slash_Effect(float x, float y, float dx, float dy) {
-        super(x, y, 0, 0, R.mipmap.slash_effect, 20, 5);
-        fabSlash = new FrameAnimationBitmap(R.mipmap.slash_effect, 20, 5);
+        super(x, y, 0, 0, R.mipmap.slasheffect, 20, 5);
+        fabSlash = new FrameAnimationBitmap(R.mipmap.slasheffect, 20, 5);
         this.dx = dx;
         this.dy = dy;
     }
