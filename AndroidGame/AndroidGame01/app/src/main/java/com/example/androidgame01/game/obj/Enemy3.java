@@ -138,4 +138,10 @@ public class Enemy3 extends AnimObject {
             enemyDeath();
         }
     }
+    @Override
+    public void positionUpdate(float x, float y)
+    {
+        this.x = x;
+        this.y = y;
+    }
 }

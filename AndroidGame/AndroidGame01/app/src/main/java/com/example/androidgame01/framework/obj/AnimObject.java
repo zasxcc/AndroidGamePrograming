@@ -89,5 +89,10 @@ public class AnimObject extends GameObject {
         respawnCount = 0;
         isScoreAdd = false;
     }
+    public void positionUpdate(float x, float y)
+    {
+        this.x = x;
+        this.y = y;
+    }
     /////////////////////////////
 }

@@ -3,7 +3,6 @@ package com.example.androidgame01.game.scene;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.RectF;
-import android.util.Log;
 
 import com.example.androidgame01.framework.main.GameScene;
 import com.example.androidgame01.framework.main.GameTimer;
@@ -12,13 +11,13 @@ import com.example.androidgame01.framework.obj.AnimObject;
 import com.example.androidgame01.framework.obj.BitmapObject;
 import com.example.androidgame01.framework.obj.ScoreObject;
 import com.example.androidgame01.framework.obj.ui.Button;
+import com.example.androidgame01.game.UI.HPbar;
 import com.example.androidgame01.game.obj.Boss1;
 import com.example.androidgame01.game.obj.Enemy1;
 import com.example.androidgame01.game.obj.Enemy2;
 import com.example.androidgame01.game.obj.Enemy3;
 import com.example.androidgame01.game.obj.Player;
 import com.example.androidgame01.game.obj.Slash;
-import com.example.androidgame01.game.UI.HPbar;
 import com.example.androidgame01.game.obj.Slash_Effect;
 
 import kr.ac.kpu.game.scgyong.gameskeleton.R;
@@ -39,9 +38,9 @@ public class FirstScene extends GameScene {
     };
     private Player player;
     private AnimObject[] enemy = {
-            new Enemy1(1300, 800, -150, 0), new Enemy1(1300, 800, -150, 0), new Enemy1(1300, 800, -150, 0),
-            new Enemy2(1300, 800, -100, 0), new Enemy2(1300, 800, -100, 0), new Enemy2(1300, 800, -100, 0),
-            new Enemy3(1300, 800, -400, 0), new Enemy3(1300, 800, -400, 0), new Enemy3(1300, 800, -400, 0)
+            new Enemy1(11300, 800, -150, 0), new Enemy1(11300, 800, -150, 0), new Enemy1(11300, 800, -150, 0),
+            new Enemy2(11300, 800, -100, 0), new Enemy2(11300, 800, -100, 0), new Enemy2(11300, 800, -100, 0),
+            new Enemy3(11300, 800, -400, 0), new Enemy3(11300, 800, -400, 0), new Enemy3(11300, 800, -400, 0)
     };
 
     private Slash_Effect[] slash_effect = {
@@ -131,7 +130,6 @@ public class FirstScene extends GameScene {
         ) {
             player.calculateDamage(10);
             hPbar.setHPstate(player.HP);
-            Log.d("asd","Player HP : " + player.HP);
         }
         //그냥 실드 눌럿을 경우
         else if (shield.pressed == true) {
@@ -198,30 +196,37 @@ public class FirstScene extends GameScene {
         //게임 난이도 조절
         if(scoreObject.getScore() > 100 && gameLevel_A == false){
             gameLevel_A = true;
+            enemy[1].positionUpdate(1300, 800);
             gameWorld.add(Layer.enemy.ordinal(), enemy[1]);
         }
         else if(scoreObject.getScore() > 300 && gameLevel_B == false){
             gameLevel_B = true;
+            enemy[3].positionUpdate(1300, 800);
             gameWorld.add(Layer.enemy.ordinal(), enemy[3]);
         }
         else if(scoreObject.getScore() > 600 && gameLevel_C == false){
             gameLevel_C = true;
+            enemy[6].positionUpdate(1300, 800);
             gameWorld.add(Layer.enemy.ordinal(), enemy[6]);
         }
         else if(scoreObject.getScore() > 1000 && gameLevel_D == false){
             gameLevel_D = true;
+            enemy[2].positionUpdate(1300, 800);
             gameWorld.add(Layer.enemy.ordinal(), enemy[2]);
         }
         else if(scoreObject.getScore() > 1500 && gameLevel_E == false){
             gameLevel_E = true;
+            enemy[4].positionUpdate(1300, 800);
             gameWorld.add(Layer.enemy.ordinal(), enemy[4]);
         }
         else if(scoreObject.getScore() > 2000 && gameLevel_F == false){
             gameLevel_F = true;
+            enemy[5].positionUpdate(1300, 800);
             gameWorld.add(Layer.enemy.ordinal(), enemy[5]);
         }
         else if(scoreObject.getScore() > 2500 && gameLevel_G == false){
             gameLevel_G = true;
+            enemy[7].positionUpdate(1300, 800);
             gameWorld.add(Layer.enemy.ordinal(), enemy[7]);
         }
 
@@ -261,6 +266,7 @@ public class FirstScene extends GameScene {
         //boss1 = new Boss1(1200, 800, -80, 0);
         gameWorld.add(Layer.player.ordinal(), hPbar);
         gameWorld.add(Layer.player.ordinal(), player);
+        enemy[0].positionUpdate(1300, 800);
         gameWorld.add(Layer.enemy.ordinal(), enemy[0]);
 
         for(int i = 0; i<15;++i) {
