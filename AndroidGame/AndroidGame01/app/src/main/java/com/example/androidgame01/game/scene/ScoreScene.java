@@ -54,6 +54,7 @@ public class ScoreScene extends GameScene {
 
         RectF rbox = new RectF(UiBridge.x(-52), UiBridge.y(20), UiBridge.x(-20), UiBridge.y(62));
         scoreObject = new ScoreObject(R.mipmap.number_64x84, rbox);
+        scoreObject.setScore(score);
         gameWorld.add(Layer.ui.ordinal(), scoreObject);
 
         int cx = UiBridge.metrics.center.x;
