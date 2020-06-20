@@ -22,10 +22,10 @@ public class Boss2 extends AnimObject {
         this.dx = dx;
         this.dy = dy;
         state = AnimState.normal;
-        fabNormal = new FrameAnimationBitmap(R.mipmap.boss2_move, 12, 5);
+        fabNormal = new FrameAnimationBitmap(R.mipmap.boss2_move, 12, 6);
         fabAttack = new FrameAnimationBitmap(R.mipmap.boss2_attack2, 4, 12);
         fabIdle = new FrameAnimationBitmap(R.mipmap.boss2_idle, 16, 8);
-        fabDeath = new FrameAnimationBitmap(R.mipmap.boss2_dead, 20, 10);
+        fabDeath = new FrameAnimationBitmap(R.mipmap.boss2_dead, 20, 11);
     }
     @Override
     public void calculateDamage(int damage)
