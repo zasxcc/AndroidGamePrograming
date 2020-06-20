@@ -278,6 +278,7 @@ public class FirstScene extends GameScene {
                 scoreObject.add(10);
             }
         }
+
     }
 
     public void endGame() {
