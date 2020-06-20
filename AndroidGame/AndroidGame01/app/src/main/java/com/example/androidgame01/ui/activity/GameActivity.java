@@ -11,6 +11,7 @@ import com.example.androidgame01.framework.main.UiBridge;
 import com.example.androidgame01.framework.res.sound.SoundEffects;
 import com.example.androidgame01.framework.view.GameView;
 import com.example.androidgame01.game.scene.FirstScene;
+import com.example.androidgame01.game.scene.ScoreScene;
 
 import kr.ac.kpu.game.scgyong.gameskeleton.R;
 
@@ -33,7 +34,7 @@ public class GameActivity extends AppCompatActivity {
         mp.setLooping(true);
         mp.start();
 
-        new FirstScene().run();
+        new ScoreScene().run();
     }
 
 }

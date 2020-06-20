@@ -1,5 +1,7 @@
 package com.example.androidgame01.game.scene;
 
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.graphics.RectF;
 
 import com.example.androidgame01.framework.main.GameScene;
@@ -278,23 +280,12 @@ public class FirstScene extends GameScene {
                 scoreObject.add(10);
             }
         }
-
     }
 
     public void endGame() {
         ScoreScene scoreScene = new ScoreScene();
         scoreScene.score = scoreObject.getScore();
         scoreScene.run();
-
-//        int score = scoreObject.getScore();
-//
-//        SharedPreferences prefs = view.getContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-//        int highScore = prefs.getInt(PREF_KEY_HIGHSCORE, 0);
-//        if (score > highScore) {
-//            SharedPreferences.Editor editor = prefs.edit();
-//            editor.putInt(PREF_KEY_HIGHSCORE, score);
-//            editor.commit();
-//        }
     }
 
 

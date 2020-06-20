@@ -3,6 +3,7 @@ package com.example.androidgame01.framework.main;
 import android.graphics.Canvas;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.View;
 
 import com.example.androidgame01.framework.iface.Touchable;
 import com.example.androidgame01.framework.iface.Recyclable;
