@@ -1,7 +1,5 @@
 package com.example.androidgame01.game.scene;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.RectF;
 
 import com.example.androidgame01.framework.main.GameScene;
@@ -182,6 +180,7 @@ public class FirstScene extends GameScene {
         }
         //어택 버튼 누르면 카운트 시작
         if(IsAttackcount) {
+
             attackCheckCount++;
             if (attackCheckCount == 10) {
                 attackCheckCount = 0;
@@ -280,15 +279,19 @@ public class FirstScene extends GameScene {
     }
 
     public void endGame() {
-        int score = scoreObject.getScore();
+        ScoreScene scoreScene = new ScoreScene();
+        scoreScene.score = scoreObject.getScore();
+        scoreScene.run();
 
-        SharedPreferences prefs = view.getContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        int highScore = prefs.getInt(PREF_KEY_HIGHSCORE, 0);
-        if (score > highScore) {
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putInt(PREF_KEY_HIGHSCORE, score);
-            editor.commit();
-        }
+//        int score = scoreObject.getScore();
+//
+//        SharedPreferences prefs = view.getContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+//        int highScore = prefs.getInt(PREF_KEY_HIGHSCORE, 0);
+//        if (score > highScore) {
+//            SharedPreferences.Editor editor = prefs.edit();
+//            editor.putInt(PREF_KEY_HIGHSCORE, score);
+//            editor.commit();
+//        }
     }
 
 

@@ -23,4 +23,5 @@ public class GameActivity extends AppCompatActivity {
 
         new FirstScene().run();
     }
+
 }
