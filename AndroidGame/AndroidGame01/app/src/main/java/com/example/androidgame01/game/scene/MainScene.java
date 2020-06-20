@@ -1,5 +1,6 @@
 package com.example.androidgame01.game.scene;
 
+import android.app.Activity;
 import android.graphics.RectF;
 
 import com.example.androidgame01.framework.main.GameScene;
@@ -37,6 +38,7 @@ public class MainScene extends GameScene {
         else if(exit.pressed == true) {
 //            FirstScene firstScene = new FirstScene();
 //            firstScene.run();
+            android.os.Process.killProcess(android.os.Process.myPid());
         }
 //        Log.d(TAG, "score" + score);
     }

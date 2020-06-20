@@ -22,4 +22,8 @@ public class MainActivity extends AppCompatActivity {
     public void onBtnStart(View view) {
         startActivity(new Intent(this, GameActivity.class));
     }
+
+    public void onBtnExit(View view) {
+        android.os.Process.killProcess(android.os.Process.myPid());
+    }
 }

@@ -70,10 +70,10 @@ public class ScoreScene extends GameScene {
         int cx = UiBridge.metrics.center.x;
         int cy = UiBridge.metrics.center.y;
 
-        re = new Button(cx + 200, cy + 300, R.mipmap.re_btn, R.mipmap.blue_round_btn, R.mipmap.red_round_btn);
+        re = new Button(cx - 200, cy + 300, R.mipmap.re_btn, R.mipmap.blue_round_btn, R.mipmap.red_round_btn);
         gameWorld.add(Layer.ui.ordinal(), re);
 
-        exit = new Button(cx + 600, cy + 300, R.mipmap.exit_btn, R.mipmap.blue_round_btn, R.mipmap.red_round_btn);
+        exit = new Button(cx + 200, cy + 300, R.mipmap.exit_btn, R.mipmap.blue_round_btn, R.mipmap.red_round_btn);
         gameWorld.add(Layer.ui.ordinal(), exit);
     }
 }

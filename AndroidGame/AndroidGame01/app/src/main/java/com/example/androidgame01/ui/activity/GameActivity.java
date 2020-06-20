@@ -34,7 +34,7 @@ public class GameActivity extends AppCompatActivity {
         mp.setLooping(true);
         mp.start();
 
-        new ScoreScene().run();
+        new FirstScene().run();
     }
 
 }
