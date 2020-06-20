@@ -4,6 +4,7 @@ package com.example.androidgame01.game.obj;
 import com.example.androidgame01.framework.main.GameTimer;
 import com.example.androidgame01.framework.obj.AnimObject;
 import com.example.androidgame01.framework.res.bitmap.FrameAnimationBitmap;
+import com.example.androidgame01.framework.res.sound.SoundEffects;
 
 import kr.ac.kpu.game.scgyong.gameskeleton.R;
 
@@ -68,6 +69,7 @@ public class Boss1 extends AnimObject {
         }
         else if(this.state == AnimState.death)
         {
+            SoundEffects.get().play(R.raw.boss1_dead);
             fab = fabDeath;
             fab.reset();
         }

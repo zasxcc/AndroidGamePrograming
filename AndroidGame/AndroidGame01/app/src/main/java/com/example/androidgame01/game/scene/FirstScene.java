@@ -9,6 +9,7 @@ import com.example.androidgame01.framework.obj.AnimObject;
 import com.example.androidgame01.framework.obj.BitmapObject;
 import com.example.androidgame01.framework.obj.ScoreObject;
 import com.example.androidgame01.framework.obj.ui.Button;
+import com.example.androidgame01.framework.res.sound.SoundEffects;
 import com.example.androidgame01.game.UI.HPbar;
 import com.example.androidgame01.game.obj.Boss1;
 import com.example.androidgame01.game.obj.Boss2;
@@ -166,6 +167,7 @@ public class FirstScene extends GameScene {
 
         //어택 버튼 눌럿을때
         if(attack.pressed == true && IsAttackcount == false) {
+            SoundEffects.get().play(R.raw.sword);
             player.Attack();
 
             if(attackCheckCount == 0) {
@@ -332,6 +334,7 @@ public class FirstScene extends GameScene {
 
         shield = new Button(cx + 750, cy + 300, R.mipmap.shield_button, R.mipmap.blue_round_btn, R.mipmap.red_round_btn);
         gameWorld.add(Layer.ui.ordinal(), shield);
+
 
 //        SharedPreferences prefs = view.getContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
 //        int highScore = prefs.getInt(PREF_KEY_HIGHSCORE, 0);

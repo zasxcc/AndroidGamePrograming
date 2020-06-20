@@ -8,6 +8,7 @@ import com.example.androidgame01.framework.iface.Touchable;
 import com.example.androidgame01.framework.main.UiBridge;
 import com.example.androidgame01.framework.obj.AnimObject;
 import com.example.androidgame01.framework.res.bitmap.FrameAnimationBitmap;
+import com.example.androidgame01.framework.res.sound.SoundEffects;
 import com.example.androidgame01.game.scene.FirstScene;
 
 import kr.ac.kpu.game.scgyong.gameskeleton.R;
@@ -55,6 +56,8 @@ public class Player extends AnimObject implements Touchable {
     public void PerfectGuard()
     {
         fab = new FrameAnimationBitmap(R.mipmap.perdef, 8, 0);
+
+        SoundEffects.get().play(R.raw.slash);
     }
 
     public void Attack(){

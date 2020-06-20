@@ -15,7 +15,9 @@ public class SoundEffects {
     private SoundPool soundPool;
     private HashMap<Integer, Integer> soundIdMap = new HashMap<>();
     private static final int[] SOUND_IDS = {
-            R.raw.slash,
+            R.raw.slash, R.raw.bgm, R.raw.boss1_dead, R.raw.boss2_dead,
+            R.raw.monster1_dead, R.raw.monster2_dead, R.raw.monster3_dead,
+            R.raw.sword,
     };
 
     public static SoundEffects get() {
