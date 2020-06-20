@@ -137,6 +137,12 @@ public class Enemy3 extends AnimObject {
             }
             enemyDeath();
         }
+        revengeSlashCount++;
+        if(revengeSlashCount > 100)
+        {
+            revengeSlashCount=0;
+            bDamagedRevengeSlash = false;
+        }
     }
     @Override
     public void positionUpdate(float x, float y)

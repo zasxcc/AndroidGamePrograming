@@ -22,7 +22,8 @@ public class AnimObject extends GameObject {
     public boolean isDeath = false;
     public boolean isScoreAdd = false;
     public int respawnCount = 0;
-
+    public boolean bDamagedRevengeSlash = false;
+    public int revengeSlashCount =0;
     public enum AnimState {
         normal, attack, idle, death
     }
@@ -88,6 +89,7 @@ public class AnimObject extends GameObject {
         isDeath = false;
         respawnCount = 0;
         isScoreAdd = false;
+        bDamagedRevengeSlash = false;
     }
     public void positionUpdate(float x, float y)
     {

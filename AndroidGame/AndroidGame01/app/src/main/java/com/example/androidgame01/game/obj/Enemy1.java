@@ -37,7 +37,7 @@ public class Enemy1 extends AnimObject {
     public void enemyDeath()
     {
         respawnCount++;
-        if(respawnCount == 200)
+        if(respawnCount == 100)
         {
             initState();
             setAimState(AnimState.normal);
@@ -80,6 +80,7 @@ public class Enemy1 extends AnimObject {
         return this.width / 2;
     }
 
+    @Override
     public void update() {
         if (bMove) {
             {
@@ -136,6 +137,13 @@ public class Enemy1 extends AnimObject {
                 this.y = -500;
             }
             enemyDeath();
+        }
+
+        revengeSlashCount++;
+        if(revengeSlashCount > 100)
+        {
+            revengeSlashCount=0;
+            bDamagedRevengeSlash = false;
         }
     }
 

@@ -7,13 +7,15 @@ import android.media.SoundPool;
 
 import java.util.HashMap;
 
+import kr.ac.kpu.game.scgyong.gameskeleton.R;
+
 public class SoundEffects {
     private static final String TAG = SoundEffects.class.getSimpleName();
     private static SoundEffects singleton;
     private SoundPool soundPool;
     private HashMap<Integer, Integer> soundIdMap = new HashMap<>();
     private static final int[] SOUND_IDS = {
-//        R.raw.hadouken
+            R.raw.slash,
     };
 
     public static SoundEffects get() {

@@ -13,6 +13,7 @@ import com.example.androidgame01.framework.obj.ScoreObject;
 import com.example.androidgame01.framework.obj.ui.Button;
 import com.example.androidgame01.game.UI.HPbar;
 import com.example.androidgame01.game.obj.Boss1;
+import com.example.androidgame01.game.obj.Boss2;
 import com.example.androidgame01.game.obj.Enemy1;
 import com.example.androidgame01.game.obj.Enemy2;
 import com.example.androidgame01.game.obj.Enemy3;
@@ -45,9 +46,10 @@ public class FirstScene extends GameScene {
 
     private Player player;
     private AnimObject[] enemy = {
-            new Enemy1(11300, 800, -150, 0), new Enemy1(11300, 800, -150, 0), new Enemy1(11300, 800, -150, 0),
-            new Enemy2(11300, 800, -100, 0), new Enemy2(11300, 800, -100, 0), new Enemy2(11300, 800, -100, 0),
-            new Enemy3(11300, 800, -400, 0), new Enemy3(11300, 800, -400, 0), new Enemy3(11300, 800, -400, 0)
+            new Enemy1(113000, 800, -150, 0), new Enemy1(113000, 800, -150, 0), new Enemy1(113000, 800, -150, 0),
+            new Enemy2(113000, 800, -100, 0), new Enemy2(113000, 800, -100, 0), new Enemy2(113000, 800, -100, 0),
+            new Enemy3(113000, 800, -400, 0), new Enemy3(113000, 800, -400, 0), new Enemy3(113000, 800, -400, 0),
+            new Boss1(113000, 800, -100, 0), new Boss2(113000, 800, -100, 0)
     };
 
     private Slash_Effect[] slash_effect = {
@@ -57,15 +59,13 @@ public class FirstScene extends GameScene {
             new Slash_Effect(9999, 9999, 0, 0), new Slash_Effect(9999, 9999, 0, 0), new Slash_Effect(9999, 9999, 0, 0),
             new Slash_Effect(9999, 9999, 0, 0), new Slash_Effect(9999, 9999, 0, 0), new Slash_Effect(9999, 9999, 0, 0)
     };
-    private Boss1 boss1;
+
     public static final String PREFS_NAME = "Prefs";
     public static final String PREF_KEY_HIGHSCORE = "highScore";
     private ScoreObject scoreObject;
-    private ScoreObject highScoreObject;
     private GameTimer timer;
     private Button attack;
     private Button shield;
-    private Button HPbar;
     private int attackCheckCount = 0;
     private int slashCount = 0;
     private int revengeSlashCount = 0;
@@ -79,19 +79,29 @@ public class FirstScene extends GameScene {
     boolean gameLevel_E = false;
     boolean gameLevel_F = false;
     boolean gameLevel_G = false;
+    boolean bRevengeSlash = true;
 
 
     int ENEMY1_MINATTACKFRAME = 20;
     int ENEMY1_MAXATTACKFRAME = 40;
-    int ENEMY1_ATTACKTRIGGER = 45;
+    int ENEMY1_ATTACKTRIGGER = 41;
 
     int ENEMY2_MINATTACKFRAME = 50;
     int ENEMY2_MAXATTACKFRAME = 65;
-    int ENEMY2_ATTACKTRIGGER = 70;
+    int ENEMY2_ATTACKTRIGGER = 66;
 
     int ENEMY3_MINATTACKFRAME = 60;
     int ENEMY3_MAXATTACKFRAME = 75;
-    int ENEMY3_ATTACKTRIGGER = 80;
+    int ENEMY3_ATTACKTRIGGER = 81;
+
+    //임시로 숫자 대입해논거
+    int BOSS1_MINATTACKFRAME = 50;
+    int BOSS1_MAXATTACKFRAME = 70;
+    int BOSS1_ATTACKTRIGGER = 71;
+
+    int BOSS2_MINATTACKFRAME = 50;
+    int BOSS2_MAXATTACKFRAME = 70;
+    int BOSS2_ATTACKTRIGGER = 71;
 
     int slashEffect_Count = 0;
 
@@ -103,9 +113,7 @@ public class FirstScene extends GameScene {
     @Override
     public void update() {
         super.update();
-//        Log.d(TAG, "Score: " + timer.getRawIndex());
         if (timer.done()) {
-            //scoreObject.add(100);
             timer.reset();
         }
 
@@ -118,22 +126,18 @@ public class FirstScene extends GameScene {
                 (enemy[2].attackFrame > ENEMY1_MINATTACKFRAME && enemy[2].attackFrame < ENEMY1_MAXATTACKFRAME) || (enemy[3].attackFrame > ENEMY2_MINATTACKFRAME && enemy[3].attackFrame < ENEMY2_MAXATTACKFRAME) ||
                 (enemy[4].attackFrame > ENEMY2_MINATTACKFRAME && enemy[4].attackFrame < ENEMY2_MAXATTACKFRAME) || (enemy[5].attackFrame > ENEMY2_MINATTACKFRAME && enemy[5].attackFrame < ENEMY2_MAXATTACKFRAME) ||
                 (enemy[6].attackFrame > ENEMY3_MINATTACKFRAME && enemy[6].attackFrame < ENEMY3_MAXATTACKFRAME) || (enemy[7].attackFrame > ENEMY3_MINATTACKFRAME && enemy[7].attackFrame < ENEMY3_MAXATTACKFRAME) ||
-                (enemy[8].attackFrame > ENEMY3_MINATTACKFRAME && enemy[8].attackFrame < ENEMY3_MAXATTACKFRAME)) && isPerfectGuard == true) {
-
-            revengeSlashCount++;
-            if(revengeSlashCount == 5)
-                revengeSlashCount = 0;
-            revengeSlash[revengeSlashCount].positionUpdate(400, 800, 800);
-            gameWorld.add(Layer.player.ordinal(), revengeSlash[revengeSlashCount]);
-
+                (enemy[8].attackFrame > ENEMY3_MINATTACKFRAME && enemy[8].attackFrame < ENEMY3_MAXATTACKFRAME) || (enemy[9].attackFrame > BOSS1_MINATTACKFRAME && enemy[9].attackFrame < BOSS1_MAXATTACKFRAME) ||
+                (enemy[10].attackFrame > BOSS2_MINATTACKFRAME && enemy[10].attackFrame < BOSS2_MAXATTACKFRAME))
+                && isPerfectGuard == true){
+            if(bRevengeSlash) {
+                revengeSlashCount++;
+                if (revengeSlashCount == 5)
+                    revengeSlashCount = 0;
+                revengeSlash[revengeSlashCount].positionUpdate(400, 800, 800);
+                gameWorld.add(Layer.player.ordinal(), revengeSlash[revengeSlashCount]);
+                bRevengeSlash = false;
+            }
             player.PerfectGuard();
-//            for(int i = 0 ; i<9; ++i)
-//            {
-//                if(enemy[i].getX() - 400 < player.getX())
-//                {
-//                    enemy[i].calculateDamage(100);
-//                }
-//            }
             shield.capturing = false;
         }
         else if (shield.pressed == false && (
@@ -141,7 +145,8 @@ public class FirstScene extends GameScene {
                 (enemy[2].attackFrame == ENEMY1_ATTACKTRIGGER && enemy[2].isDeath == false) || (enemy[3].attackFrame == ENEMY2_ATTACKTRIGGER && enemy[3].isDeath == false) ||
                 (enemy[4].attackFrame == ENEMY2_ATTACKTRIGGER && enemy[4].isDeath == false) || (enemy[5].attackFrame == ENEMY2_ATTACKTRIGGER && enemy[5].isDeath == false) ||
                 (enemy[6].attackFrame == ENEMY3_ATTACKTRIGGER && enemy[6].isDeath == false) || (enemy[7].attackFrame == ENEMY3_ATTACKTRIGGER && enemy[7].isDeath == false) ||
-                (enemy[8].attackFrame == ENEMY3_ATTACKTRIGGER && enemy[8].isDeath == false) )
+                (enemy[8].attackFrame == ENEMY3_ATTACKTRIGGER && enemy[8].isDeath == false) || (enemy[9].attackFrame == BOSS1_ATTACKTRIGGER && enemy[9].isDeath == false) ||
+                (enemy[10].attackFrame == BOSS2_ATTACKTRIGGER && enemy[10].isDeath == false))
         ) {
             player.calculateDamage(10);
             hPbar.setHPstate(player.HP);
@@ -157,12 +162,14 @@ public class FirstScene extends GameScene {
             player.idle();
             shield.capturing = true;
             isPerfectGuard = true;
+            bRevengeSlash = true;
         }
 
 
         //어택 버튼 눌럿을때
         if(attack.pressed == true && IsAttackcount == false) {
             player.Attack();
+
             if(attackCheckCount == 0) {
                 slashCount++;
                 if(slashCount == 14)
@@ -184,16 +191,17 @@ public class FirstScene extends GameScene {
         }
 
         //플레이어 적 충돌
-        for(int i = 0; i<9; ++i) {
+        for(int i = 0; i<11; ++i) {
             if (enemy[i].getX() - 200 < player.getX() && enemy[i].bAttack == false) {
                 enemy[i].setAimState(AnimObject.AnimState.attack);
                 enemy[i].setMove(false);
             }
         }
+
         //Slash 적 충돌
         for(int i = 0; i<15; ++i) {
             if (slash != null) {
-                for (int j = 0; j < 9; ++j) {
+                for (int j = 0; j < 11; ++j) {
                     if (slash[i].getX() > enemy[j].getX() && slash[i].getX() < enemy[j].getX() + 100) {
                         slash_effect[slashEffect_Count].setPosition(slash[i].getX(), slash[i].getY());
                         slash[i].destroy();
@@ -211,8 +219,11 @@ public class FirstScene extends GameScene {
         //RevengeSlash 적 충돌
         for(int i = 0; i<6; ++i) {
             if (revengeSlash != null) {
-                for (int j = 0; j < 9; ++j) {
-                    //충돌시 코드
+                for (int j = 0; j < 11; ++j) {
+                    if(revengeSlash[i].getX() > enemy[j].getX() && revengeSlash[i].getX() < enemy[j].getX() + 300 && enemy[j].bDamagedRevengeSlash == false) {
+                        enemy[j].calculateDamage(100);
+                        enemy[j].bDamagedRevengeSlash = true;
+                    }
                 }
             }
         }
@@ -237,6 +248,8 @@ public class FirstScene extends GameScene {
             gameLevel_D = true;
             enemy[2].positionUpdate(1300, 800);
             gameWorld.add(Layer.enemy.ordinal(), enemy[2]);
+            enemy[9].positionUpdate(1300, 800);
+            gameWorld.add(Layer.enemy.ordinal(), enemy[9]);
         }
         else if(scoreObject.getScore() > 1500 && gameLevel_E == false){
             gameLevel_E = true;
@@ -247,6 +260,8 @@ public class FirstScene extends GameScene {
             gameLevel_F = true;
             enemy[5].positionUpdate(1300, 800);
             gameWorld.add(Layer.enemy.ordinal(), enemy[5]);
+            enemy[10].positionUpdate(1300, 800);
+            gameWorld.add(Layer.enemy.ordinal(), enemy[10]);
         }
         else if(scoreObject.getScore() > 2500 && gameLevel_G == false){
             gameLevel_G = true;
@@ -255,7 +270,7 @@ public class FirstScene extends GameScene {
         }
 
 
-        for(int i = 0; i<9; i++)
+        for(int i = 0; i<11; i++)
         {
             if(enemy[i].isScoreAdd == true)
             {
@@ -287,7 +302,6 @@ public class FirstScene extends GameScene {
 
         player = new Player(300,800);
         hPbar = new HPbar(300, 100,0,0);
-        //boss1 = new Boss1(1200, 800, -80, 0);
         gameWorld.add(Layer.player.ordinal(), hPbar);
         gameWorld.add(Layer.player.ordinal(), player);
         enemy[0].positionUpdate(1300, 800);
@@ -315,8 +329,6 @@ public class FirstScene extends GameScene {
 
         shield = new Button(cx + 750, cy + 300, R.mipmap.shield_button, R.mipmap.blue_round_btn, R.mipmap.red_round_btn);
         gameWorld.add(Layer.ui.ordinal(), shield);
-
-
 
 //        SharedPreferences prefs = view.getContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
 //        int highScore = prefs.getInt(PREF_KEY_HIGHSCORE, 0);
