@@ -24,7 +24,7 @@ public class Boss2 extends AnimObject {
         this.dy = dy;
         state = AnimState.normal;
         fabNormal = new FrameAnimationBitmap(R.mipmap.boss2_move, 12, 6);
-        fabAttack = new FrameAnimationBitmap(R.mipmap.boss2_attack2, 4, 12);
+        fabAttack = new FrameAnimationBitmap(R.mipmap.boss2_attack2, 8, 12);
         fabIdle = new FrameAnimationBitmap(R.mipmap.boss2_idle, 16, 8);
         fabDeath = new FrameAnimationBitmap(R.mipmap.boss2_dead, 20, 11);
     }
@@ -38,7 +38,7 @@ public class Boss2 extends AnimObject {
     public void enemyDeath()
     {
         respawnCount++;
-        if(respawnCount == 100)
+        if(respawnCount == 300)
         {
             initState();
             setAimState(AnimState.normal);
@@ -46,8 +46,8 @@ public class Boss2 extends AnimObject {
             respawnCount = 0;
             this.x = 1300;
             this.y = 800;
-            this.dx = -150;
-            this.HP = 1000;
+            this.dx = -100;
+            this.HP = 2000;
         }
     }
 

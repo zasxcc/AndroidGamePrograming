@@ -1,8 +1,6 @@
 package com.example.androidgame01.game.scene;
 
 import android.graphics.RectF;
-import android.media.MediaPlayer;
-import android.util.Log;
 
 import com.example.androidgame01.framework.main.GameScene;
 import com.example.androidgame01.framework.main.GameTimer;

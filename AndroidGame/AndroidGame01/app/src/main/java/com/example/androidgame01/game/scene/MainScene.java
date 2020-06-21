@@ -1,13 +1,8 @@
 package com.example.androidgame01.game.scene;
 
-import android.app.Activity;
-import android.graphics.RectF;
-
 import com.example.androidgame01.framework.main.GameScene;
-import com.example.androidgame01.framework.main.GameTimer;
 import com.example.androidgame01.framework.main.UiBridge;
 import com.example.androidgame01.framework.obj.BitmapObject;
-import com.example.androidgame01.framework.obj.ScoreObject;
 import com.example.androidgame01.framework.obj.ui.Button;
 
 import kr.ac.kpu.game.scgyong.gameskeleton.R;
@@ -22,6 +17,7 @@ public class MainScene extends GameScene {
 
     private Button start;
     private Button exit;
+    private Button logo;
 
     @Override
     protected int getLayerCount() {
@@ -55,8 +51,12 @@ public class MainScene extends GameScene {
         BitmapObject title = new BitmapObject(UiBridge.metrics.center.x, UiBridge.y(100), -150, -180, R.mipmap.bg);
         gameWorld.add(FirstScene.Layer.bg.ordinal(), title);
 
+        BitmapObject titleLogo = new BitmapObject(UiBridge.metrics.center.x, UiBridge.y(100), -150, -180, R.mipmap.title);
+        gameWorld.add(FirstScene.Layer.bg.ordinal(), titleLogo);
+
         int cx = UiBridge.metrics.center.x;
         int cy = UiBridge.metrics.center.y;
+
 
         start = new Button(cx + 200, cy + 300, R.mipmap.start_btn, R.mipmap.blue_round_btn, R.mipmap.red_round_btn);
         gameWorld.add(Layer.ui.ordinal(), start);

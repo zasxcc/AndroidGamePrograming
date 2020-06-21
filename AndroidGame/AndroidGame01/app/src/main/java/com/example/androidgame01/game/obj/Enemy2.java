@@ -38,7 +38,7 @@ public class Enemy2 extends AnimObject {
     public void enemyDeath()
     {
         respawnCount++;
-        if(respawnCount == 150)
+        if(respawnCount == 120)
         {
             initState();
             setAimState(AnimState.normal);
@@ -46,8 +46,8 @@ public class Enemy2 extends AnimObject {
             respawnCount = 0;
             this.x = 1300;
             this.y = 800;
-            this.dx = -100;
-            this.HP = 200;
+            this.dx = -200;
+            this.HP = 300;
         }
     }
 

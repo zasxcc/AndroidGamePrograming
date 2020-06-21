@@ -1,7 +1,5 @@
 package com.example.androidgame01.game.scene;
 
-import android.app.Activity;
-import android.content.SharedPreferences;
 import android.graphics.RectF;
 
 import com.example.androidgame01.framework.main.GameScene;
@@ -96,13 +94,13 @@ public class FirstScene extends GameScene {
     int ENEMY3_ATTACKTRIGGER = 81;
 
     //임시로 숫자 대입해논거
-    int BOSS1_MINATTACKFRAME = 50;
-    int BOSS1_MAXATTACKFRAME = 70;
-    int BOSS1_ATTACKTRIGGER = 71;
+    int BOSS1_MINATTACKFRAME = 20;
+    int BOSS1_MAXATTACKFRAME = 36;
+    int BOSS1_ATTACKTRIGGER = 38;
 
-    int BOSS2_MINATTACKFRAME = 50;
-    int BOSS2_MAXATTACKFRAME = 70;
-    int BOSS2_ATTACKTRIGGER = 71;
+    int BOSS2_MINATTACKFRAME = 30;
+    int BOSS2_MAXATTACKFRAME = 40;
+    int BOSS2_ATTACKTRIGGER = 42;
 
     int slashEffect_Count = 0;
 

@@ -38,7 +38,7 @@ public class Enemy3 extends AnimObject {
     public void enemyDeath()
     {
         respawnCount++;
-        if(respawnCount == 200)
+        if(respawnCount == 180)
         {
             initState();
             setAimState(AnimState.normal);

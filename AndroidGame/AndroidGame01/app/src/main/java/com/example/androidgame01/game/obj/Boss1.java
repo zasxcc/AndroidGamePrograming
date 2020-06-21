@@ -38,7 +38,7 @@ public class Boss1 extends AnimObject {
     public void enemyDeath()
     {
         respawnCount++;
-        if(respawnCount == 100)
+        if(respawnCount == 200)
         {
             initState();
             setAimState(AnimState.normal);
@@ -47,7 +47,7 @@ public class Boss1 extends AnimObject {
             this.x = 1300;
             this.y = 800;
             this.dx = -150;
-            this.HP = 1000;
+            this.HP = 1300;
         }
     }
 
