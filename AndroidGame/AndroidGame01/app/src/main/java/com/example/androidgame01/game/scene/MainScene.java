@@ -58,10 +58,10 @@ public class MainScene extends GameScene {
         int cy = UiBridge.metrics.center.y;
 
 
-        start = new Button(cx + 200, cy + 300, R.mipmap.start_btn, R.mipmap.blue_round_btn, R.mipmap.red_round_btn);
+        start = new Button(cx - 200, cy + 300, R.mipmap.start_btn, R.mipmap.blue_round_btn, R.mipmap.red_round_btn);
         gameWorld.add(Layer.ui.ordinal(), start);
 
-        exit = new Button(cx + 600, cy + 300, R.mipmap.exit_btn, R.mipmap.blue_round_btn, R.mipmap.red_round_btn);
+        exit = new Button(cx + 200, cy + 300, R.mipmap.exit_btn, R.mipmap.blue_round_btn, R.mipmap.red_round_btn);
         gameWorld.add(Layer.ui.ordinal(), exit);
     }
 }
